@@ -1,3 +1,5 @@
 # Ignorar arquivos de dados locais
 /db/*
 !db/esquema.sql
+/bin/
+*.class
