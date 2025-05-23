@@ -5,7 +5,8 @@
         "type": "java",
         "name": "Run Main",
         "request": "launch",
-        "mainClass": "controller.Main"
+        "mainClass": "controller.Main",
+        "vmArgs": "--enable-native-access=ALL-UNNAMED"
         }
     ]
 }
