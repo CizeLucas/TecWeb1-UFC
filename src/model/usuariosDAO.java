@@ -42,6 +42,66 @@ public class UsuariosDAO {
         return usuarios;
     }
 
+    public Usuario getUsuario(String login) {
+        String sql = "SELECT * FROM usuarios WHERE login = ?";
+        Usuario usuario = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String senha_hash = resultSet.getString("senha_hash");
+                boolean admin = resultSet.getBoolean("admin");
+                int numero = resultSet.getInt("numero");
+                String personalText = resultSet.getString("personalText");
+
+                usuario = new Usuario(login, senha_hash, admin, numero, personalText);
+            }
+        } catch (SQLException exception) {
+            System.out.println("Erro ao buscar usuário: " + exception.getMessage());
+        }
+
+        return usuario;
+    }
+
+    public boolean verificaLogin(String login) {
+        String sql = "SELECT * FROM usuarios WHERE login = ?";
+        boolean existe = false;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                existe = true;
+            }
+        } catch (SQLException exception) {
+            System.out.println("Erro ao verificar login: " + exception.getMessage());
+        }
+
+        return existe;
+    }
+
+    public boolean verificaSenha(String login, String senha) {
+        String sql = "SELECT * FROM usuarios WHERE login = ? AND senha_hash = ?";
+        boolean existe = false;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, SHA1.toHash(senha));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                existe = true;
+            }
+        } catch (SQLException exception) {
+            System.out.println("Erro ao verificar senha: " + exception.getMessage());
+        }
+
+        return existe;
+    }
+
     public void addUsuario(String login, String senha) {
         String sql = "INSERT INTO usuarios (login, senha_hash) VALUES (?, ?)";
 
@@ -105,29 +165,6 @@ public class UsuariosDAO {
         } catch (SQLException exception) {
             System.out.println("Erro ao atualizar senha: " + exception.getMessage());
         }
-    }
-
-    public Usuario getUsuario(String login) {
-        String sql = "SELECT * FROM usuarios WHERE login = ?";
-        Usuario usuario = null;
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String senha_hash = resultSet.getString("senha_hash");
-                boolean admin = resultSet.getBoolean("admin");
-                int numero = resultSet.getInt("numero");
-                String personalText = resultSet.getString("personalText");
-
-                usuario = new Usuario(login, senha_hash, admin, numero, personalText);
-            }
-        } catch (SQLException exception) {
-            System.out.println("Erro ao buscar usuário: " + exception.getMessage());
-        }
-
-        return usuario;
     }
 
     public void deleteUsuario(String login) {
