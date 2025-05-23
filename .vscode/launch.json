@@ -2,11 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-        "type": "java",
-        "name": "Run Main",
-        "request": "launch",
-        "mainClass": "controller.Main",
-        "vmArgs": "--enable-native-access=ALL-UNNAMED"
+            "type": "java",
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "controller.Server",
+            "projectName": "TecWeb1-UFC_c54af54e"
+        },
+        {
+            "type": "java",
+            "name": "Run Main",
+            "request": "launch",
+            "mainClass": "controller.Main",
+            "vmArgs": "--enable-native-access=ALL-UNNAMED"
         }
     ]
 }
