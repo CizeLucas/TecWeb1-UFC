@@ -1,7 +1,5 @@
 package model;
 
-import model.SHA1;
-
 public class Usuario {
 
     private String login;
