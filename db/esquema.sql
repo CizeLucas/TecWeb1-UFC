@@ -1,6 +1,6 @@
 CREATE TABLE usuarios (
     login VARCHAR(50) PRIMARY KEY,
-    senha_hash VARCHAR(40) NOT NULL
+    senha_hash VARCHAR(40) NOT NULL,
     admin BOOLEAN DEFAULT FALSE,
     numero INT DEFAULT 0,
     personal_text TEXT
