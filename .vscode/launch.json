@@ -5,8 +5,7 @@
         "type": "java",
         "name": "Run Main",
         "request": "launch",
-        "mainClass": "controller.Main",
-        "projectName": "ConectaUFC"
+        "mainClass": "controller.Main"
         }
     ]
 }
