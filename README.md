@@ -12,3 +12,13 @@ Se trata de um site que centralize interações sociais, acadêmicas e interdisc
 ### Artefatos
 - [x] Proposta Inicial
 - [ ] Documento de Requisitos
+
+### Instruções
+
+#### Dependências
+
+##### SQLite
+Baixe o SQLite e adicione o caminho do sqlite3.exe para a variavel PATH
+
+#### Setup
+Execute setup.bat para criar o banco de dados na sua maquina.
