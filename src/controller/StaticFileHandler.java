@@ -1,15 +1,18 @@
 package controller;
 
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
-import com.sun.net.httpserver.HttpExchange;
-
+/**
+ * Responsavel por receber os links das paginas que o usuário quer acessar e enviar os arquivos certos
+ */
 public class StaticFileHandler implements HttpHandler {
+    @Override
     public void handle(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
         File file = new File("." + path);
