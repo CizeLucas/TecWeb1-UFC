@@ -11,7 +11,7 @@ public class UsuariosDAO {
         try {
             String url = "jdbc:sqlite:db/dados.db";
             Connection conn = DriverManager.getConnection(url);
-            System.out.println("Conexão estabelecida!");
+            System.out.println("Conexão com o base de dados estabelecida!");
             connection = conn;
         } catch (SQLException exception) {
             System.out.println("Erro ao conectar à base de dados: " + exception.getMessage());
