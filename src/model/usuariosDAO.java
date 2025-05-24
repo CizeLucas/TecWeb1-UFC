@@ -9,7 +9,7 @@ public class UsuariosDAO {
 
     public void connect() {
         try {
-            String url = "jdbc:sqlite:db/usuarios.db";
+            String url = "jdbc:sqlite:db/dados.db";
             Connection conn = DriverManager.getConnection(url);
             System.out.println("Conexão estabelecida!");
             connection = conn;
