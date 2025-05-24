@@ -8,6 +8,6 @@ REM Compilar todos os arquivos .java do src
 javac -cp ".;lib/*" -d bin src\model\*.java src\controller\*.java
 
 REM Executar o servidor
-java -cp ".;bin;lib/*" controller.Server
+java --enable-native-access=ALL-UNNAMED -cp ".;bin;lib/*" controller.Server
 
 pause
