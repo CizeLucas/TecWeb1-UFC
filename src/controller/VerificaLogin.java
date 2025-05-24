@@ -20,8 +20,19 @@ public class VerificaLogin implements HttpHandler {
             Gson gson = new Gson();
             LoginRequest pedidoLogin = gson.fromJson(inputString, LoginRequest.class);
 
-            System.out.println("login recebido: " + pedidoLogin.login);
-            System.out.println("senha recebida: " + pedidoLogin.senha);
+            UsuariosDAO usuariosDAO = new UsuariosDAO();
+            usuariosDAO.connect();
+
+            if(usuariosDAO.verificaLogin(pedidoLogin.login)) {
+                if (usuariosDAO.verificaSenha(pedidoLogin.login, pedidoLogin.senha)) {
+                    System.out.println("senha correta para login: " + pedidoLogin.login);
+                } else {
+                    System.out.println("senha incorreta para login: " + pedidoLogin.login);
+                }
+            } else {
+                System.out.println("login não existe");
+            }
+            
         }
     }
 
