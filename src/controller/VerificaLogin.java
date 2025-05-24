@@ -30,7 +30,7 @@ public class VerificaLogin implements HttpHandler {
                     System.out.println("senha incorreta para login: " + pedidoLogin.login);
                 }
             } else {
-                System.out.println("login não existe");
+                System.out.println("login: " + pedidoLogin.login + ", não existe");
             }
             
         }
