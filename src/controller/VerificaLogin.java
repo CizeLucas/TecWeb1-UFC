@@ -23,24 +23,30 @@ public class VerificaLogin implements HttpHandler {
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             usuariosDAO.connect();
 
-            String respostaJson;
+            LoginResponse respostaRegistro = new LoginResponse();
             int statusCode = 200;
 
             if(usuariosDAO.verificaLogin(pedidoLogin.login)) {
+                respostaRegistro.login_existe = true;
                 if (usuariosDAO.verificaSenha(pedidoLogin.login, pedidoLogin.senha)) {
                     System.out.println("senha correta para login: " + pedidoLogin.login);
 
-                    respostaJson = "{\"login_existe\":1,\"senha_correta\":1}";
+                    respostaRegistro.senha_correta = true;
                 } else {
                     System.out.println("senha incorreta para login: " + pedidoLogin.login);
 
-                    respostaJson = "{\"login_existe\":1,\"senha_correta\":0}";
+                    respostaRegistro.senha_correta = false;
                 }
             } else {
                 System.out.println("login: " + pedidoLogin.login + ", não existe");
 
-                respostaJson = "{\"login_existe\":0,\"senha_correta\":0}";
+                respostaRegistro.login_existe = false;
+                respostaRegistro.senha_correta = false; // não importa
             }
+
+            usuariosDAO.close();
+
+            String respostaJson = gson.toJson(respostaRegistro, LoginResponse.class);
 
             exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
             exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
@@ -54,5 +60,11 @@ public class VerificaLogin implements HttpHandler {
     private static class LoginRequest {
         String login;
         String senha;
+    }
+
+    @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
+    private static class LoginResponse {
+        boolean login_existe;
+        boolean senha_correta;
     }
 }
