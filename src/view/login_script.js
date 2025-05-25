@@ -14,7 +14,7 @@ document.getElementById("login_box").addEventListener("submit", function (event)
             senha: senha
         })
     })
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => {
         if (data.login_existe && data.senha_correta) {
             alert("Login realizado com sucesso!");
