@@ -21,7 +21,7 @@ document.getElementById("login_box").addEventListener("submit", function (event)
 
         if (data.login_existe && data.senha_correta) {
             alert("Login realizado com sucesso!");
-            // Redirecionar a página
+            // TODO: Redirecionar para página pessoal
         } else if (data.login_existe && !data.senha_correta) {
             alert("Senha incorreta!");
         } else {
