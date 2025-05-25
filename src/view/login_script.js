@@ -14,4 +14,19 @@ document.getElementById("login_box").addEventListener("submit", function (event)
             senha: senha
         })
     })
+    .then(response => response.json)
+    .then(data => {
+        if (data.login_existe && data.senha_correta) {
+            alert("Login realizado com sucesso!");
+            // Redirecionar a página
+        } else if (data.login_existe && !data.senha_correta) {
+            alert("Senha incorreta!");
+        } else {
+            alert("Usuário não encontrado!");
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao processar login:", error);
+        alert("Erro ao tentar fazer login.");
+    })
 })
