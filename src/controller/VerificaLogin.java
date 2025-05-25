@@ -23,16 +23,31 @@ public class VerificaLogin implements HttpHandler {
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             usuariosDAO.connect();
 
+            String respostaJson;
+            int statusCode = 200;
+
             if(usuariosDAO.verificaLogin(pedidoLogin.login)) {
                 if (usuariosDAO.verificaSenha(pedidoLogin.login, pedidoLogin.senha)) {
                     System.out.println("senha correta para login: " + pedidoLogin.login);
+
+                    respostaJson = "{\"login_existe\":1,\"senha_correta\":1}";
                 } else {
                     System.out.println("senha incorreta para login: " + pedidoLogin.login);
+
+                    respostaJson = "{\"login_existe\":1,\"senha_correta\":0}";
                 }
             } else {
                 System.out.println("login: " + pedidoLogin.login + ", não existe");
+
+                respostaJson = "{\"login_existe\":0,\"senha_correta\":0}";
             }
-            
+
+            exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+
+            OutputStream respostaHttp = exchange.getResponseBody();
+            respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
+            respostaHttp.close();
         }
     }
 
