@@ -11,7 +11,9 @@ if (!usuario) {
     })
     .then(response => response.json())
     .then(data => {
-        // TODO: colocar dados do usuário na pagina
+        document.getElementById("loginUsuario").textContent = data.login;
+        document.getElementById("textoUsuario").textContent = data.texto;
+        document.getElementById("numeroUsuario").textContent = data.numero;
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);
