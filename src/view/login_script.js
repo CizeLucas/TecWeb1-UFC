@@ -20,7 +20,7 @@ document.getElementById("login_box").addEventListener("submit", function (event)
         console.log("senha_correta: " + data.senha_correta);
 
         if (data.login_existe && data.senha_correta) {
-            alert("Login realizado com sucesso!");
+            // alert("Login realizado com sucesso!");
 
             sessionStorage.setItem("usuarioLogado", login);
             window.location.href = "pessoal.html";
