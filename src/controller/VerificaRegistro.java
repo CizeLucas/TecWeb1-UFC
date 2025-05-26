@@ -33,6 +33,8 @@ public class VerificaRegistro implements HttpHandler {
                 respostaRegistro.login_existe = false;
                 if (pedidoRegistro.senha1.equals(pedidoRegistro.senha2)) {
                     respostaRegistro.senhas_iguais = true;
+
+                    usuariosDAO.addUsuario(pedidoRegistro.login, pedidoRegistro.senha1);
                 } else {
                     respostaRegistro.senhas_iguais = false;
                 }
