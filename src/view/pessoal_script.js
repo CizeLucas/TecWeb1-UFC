@@ -26,7 +26,7 @@ document.getElementById("text_box").addEventListener("submit", function(event) {
 
     console.log("botão de salvar texto pressionado");
 
-    const texto = getElementById("textoUsuario").value;
+    const texto = document.getElementById("textoUsuario").value;
 
     console.log("texto a ser salvo: " + texto);
 
