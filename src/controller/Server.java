@@ -17,6 +17,8 @@ public class Server {
 
             server.createContext("/VerificaRegistro", new VerificaRegistro());
 
+            server.createContext("/DadosUsuario", new DadosUsuario());
+
             server.setExecutor(null); // creates a default executor
             server.start();
             System.out.println("Servidor iniciado em http://localhost:8080");
