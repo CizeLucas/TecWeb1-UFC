@@ -13,7 +13,7 @@ if (!usuario) {
     .then(data => {
         document.getElementById("loginUsuario").textContent = data.login;
         document.getElementById("textoUsuario").textContent = data.texto;
-        document.getElementById("numeroUsuario").textContent = data.numero;
+        document.getElementById("numeroUsuario").value = data.numero;
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);
