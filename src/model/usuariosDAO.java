@@ -57,6 +57,7 @@ public class UsuariosDAO {
                 String personalText = resultSet.getString("personal_text");
 
                 usuario = new Usuario(login, senha_hash, admin, numero, personalText);
+                System.out.println("Sucesso ao buscar usuário: " + login);
             }
         } catch (SQLException exception) {
             System.out.println("Erro ao buscar usuário: " + exception.getMessage());
@@ -129,13 +130,14 @@ public class UsuariosDAO {
     }
 
     public void setPersonalText(String login, String personalText) {
-        String sql = "UPDATE usuarios SET personal_texto = ? WHERE login = ?";
+        String sql = "UPDATE usuarios SET personal_text = ? WHERE login = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, personalText);
             preparedStatement.setString(2, login);
 
             preparedStatement.executeUpdate();
+            System.out.println("Sucesso ao editar o texto do login: " + login + ", para: " + personalText);
         } catch (SQLException exception) {
             System.out.println("Erro ao atualizar texto pessoal: " + exception.getMessage());
         }
