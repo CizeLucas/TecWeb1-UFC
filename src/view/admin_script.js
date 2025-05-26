@@ -32,10 +32,10 @@ fetch("/ListaUsuarios")
         const linha_tr = document.createElement("tr");
         linha_tr.innerHTML = `
             <td>${usuario.login}</td>
-            <td>${usuario.senha_hash}</td>
             <td>${usuario.texto}</td>
             <td>${usuario.numero}</td>
             <td>${usuario.admin ? "Sim" : "Não"}</td>
+            <td>${usuario.senha_hash}</td>
         `
         corpo_tabela.appendChild(linha_tr);
     });
