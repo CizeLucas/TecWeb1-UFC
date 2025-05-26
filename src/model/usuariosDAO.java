@@ -124,6 +124,7 @@ public class UsuariosDAO {
             preparedStatement.setString(2, login);
 
             preparedStatement.executeUpdate();
+            System.out.println("Sucesso ao editar o texto do login: " + login + ", para: " + numero);
         } catch (SQLException exception) {
             System.out.println("Erro ao atualizar número: " + exception.getMessage());
         }
