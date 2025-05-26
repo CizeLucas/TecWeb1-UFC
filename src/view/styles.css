@@ -45,3 +45,10 @@ nav a {
     flex-direction: column;
     gap: 10px;
 }
+
+.dados_usuarios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
