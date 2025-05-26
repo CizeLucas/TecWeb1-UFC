@@ -21,12 +21,12 @@ if (!usuario) {
     });
 }
 
-document.getElementById("salvarTexto").addEventListener("submit", function(event) {
+document.getElementById("text_box").addEventListener("submit", function(event) {
     event.preventDefault();
 
     console.log("botão de salvar texto pressionado");
 
-    const texto = getElementById("textoUsuario").textContent;
+    const texto = getElementById("textoUsuario").value;
 
     console.log("texto a ser salvo: " + texto);
 
