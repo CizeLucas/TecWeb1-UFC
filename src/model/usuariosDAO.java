@@ -111,6 +111,7 @@ public class UsuariosDAO {
             preparedStatement.setString(2, SHA1.toHash(senha));
 
             preparedStatement.executeUpdate();
+            System.out.println("Sucesso ao adicionar novo usuario com login: " + login);
         } catch (SQLException exception) {
             System.out.println("Erro ao adicionar usuário: " + exception.getMessage());
         }
