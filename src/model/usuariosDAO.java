@@ -30,7 +30,7 @@ public class UsuariosDAO {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
                 int numero = resultSet.getInt("numero");
-                String personalText = resultSet.getString("personalText");
+                String personalText = resultSet.getString("personal_texto");
 
                 Usuario usuario = new Usuario(login, senha_hash, admin, numero, personalText);
                 usuarios.add(usuario);
@@ -129,7 +129,7 @@ public class UsuariosDAO {
     }
 
     public void setPersonalText(String login, String personalText) {
-        String sql = "UPDATE usuarios SET personalText = ? WHERE login = ?";
+        String sql = "UPDATE usuarios SET personal_texto = ? WHERE login = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, personalText);
