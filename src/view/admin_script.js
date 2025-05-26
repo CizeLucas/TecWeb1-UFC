@@ -23,3 +23,24 @@ if (!usuario) {
         alert("Erro ao carregar dados do usuário.");
     });
 }
+
+fetch("/ListaUsuarios")
+.then(response => response.json())
+.then(data => {
+    const corpo_tabela = document.getElementById("tabelaUsuarios").querySelector("tbody");
+    data.array.forEach(usuario => {
+        const linha_tr = document.createElement("tr");
+        linha_tr.innerHTML = `
+            <td>${usuario.login}</td>
+            <td>${usuario.senha_hash}</td>
+            <td>${usuario.texto}</td>
+            <td>${usuario.numero}</td>
+            <td>${usuario.admin ? "Sim" : "Não"}</td>
+        `
+        corpo_tabela.appendChild(linha_tr);
+    });
+})
+.catch(error => {
+    alert("Erro ao carregar usuários.");
+    console.error(error);
+});
