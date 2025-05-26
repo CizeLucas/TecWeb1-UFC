@@ -21,6 +21,8 @@ public class Server {
 
             server.createContext("/SalvaDadosUsuario", new SalvaDadosUsuario());
 
+            server.createContext("/ListaUsuarios", new ListaUsuarios());
+
             server.setExecutor(null); // creates a default executor
             server.start();
             System.out.println("Servidor iniciado em http://localhost:8080");
