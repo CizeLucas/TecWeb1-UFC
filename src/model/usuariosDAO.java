@@ -14,7 +14,7 @@ public class UsuariosDAO {
             System.out.println("Conexão com o base de dados estabelecida!");
             connection = conn;
         } catch (SQLException exception) {
-            System.out.println("Erro ao conectar à base de dados: " + exception.getMessage());
+            System.err.println("Erro ao conectar à base de dados: " + exception.getMessage());
             connection = null;
         }
     }
@@ -30,13 +30,13 @@ public class UsuariosDAO {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
                 int numero = resultSet.getInt("numero");
-                String personalText = resultSet.getString("personal_texto");
+                String personalText = resultSet.getString("personal_text");
 
                 Usuario usuario = new Usuario(login, senha_hash, admin, numero, personalText);
                 usuarios.add(usuario);
             }
         } catch (SQLException exception) {
-            System.out.println("Erro ao buscar usuários: " + exception.getMessage());
+            System.err.println("Erro ao buscar usuários: " + exception.getMessage());
         }
 
         return usuarios;
@@ -60,7 +60,7 @@ public class UsuariosDAO {
                 System.out.println("Sucesso ao buscar usuário: " + login);
             }
         } catch (SQLException exception) {
-            System.out.println("Erro ao buscar usuário: " + exception.getMessage());
+            System.err.println("Erro ao buscar usuário: " + exception.getMessage());
         }
 
         return usuario;
@@ -78,7 +78,7 @@ public class UsuariosDAO {
                 existe = true;
             }
         } catch (SQLException exception) {
-            System.out.println("Erro ao verificar login: " + exception.getMessage());
+            System.err.println("Erro ao verificar login: " + exception.getMessage());
         }
 
         return existe;
@@ -97,7 +97,7 @@ public class UsuariosDAO {
                 existe = true;
             }
         } catch (SQLException exception) {
-            System.out.println("Erro ao verificar senha: " + exception.getMessage());
+            System.err.println("Erro ao verificar senha: " + exception.getMessage());
         }
 
         return existe;
@@ -113,7 +113,7 @@ public class UsuariosDAO {
             preparedStatement.executeUpdate();
             System.out.println("Sucesso ao adicionar novo usuario com login: " + login);
         } catch (SQLException exception) {
-            System.out.println("Erro ao adicionar usuário: " + exception.getMessage());
+            System.err.println("Erro ao adicionar usuário: " + exception.getMessage());
         }
     }
 
@@ -127,7 +127,7 @@ public class UsuariosDAO {
             preparedStatement.executeUpdate();
             System.out.println("Sucesso ao editar o texto do login: " + login + ", para: " + numero);
         } catch (SQLException exception) {
-            System.out.println("Erro ao atualizar número: " + exception.getMessage());
+            System.err.println("Erro ao atualizar número: " + exception.getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ public class UsuariosDAO {
             preparedStatement.executeUpdate();
             System.out.println("Sucesso ao editar o texto do login: " + login + ", para: " + personalText);
         } catch (SQLException exception) {
-            System.out.println("Erro ao atualizar texto pessoal: " + exception.getMessage());
+            System.err.println("Erro ao atualizar texto pessoal: " + exception.getMessage());
         }
     }
 
@@ -154,7 +154,7 @@ public class UsuariosDAO {
 
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("Erro ao atualizar admin: " + exception.getMessage());
+            System.err.println("Erro ao atualizar admin: " + exception.getMessage());
         }
     }
 
@@ -167,7 +167,7 @@ public class UsuariosDAO {
 
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("Erro ao atualizar senha: " + exception.getMessage());
+            System.err.println("Erro ao atualizar senha: " + exception.getMessage());
         }
     }
 
@@ -178,7 +178,7 @@ public class UsuariosDAO {
             preparedStatement.setString(1, login);
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println("Erro ao deletar usuário: " + exception.getMessage());
+            System.err.println("Erro ao deletar usuário: " + exception.getMessage());
         }
     }
 
@@ -187,7 +187,7 @@ public class UsuariosDAO {
             connection.close();
             System.out.println("Encerrando a conexão com a base de dados...");
         } catch (SQLException exception) {
-            System.out.println("Erro ao fechar a conexão: " + exception.getMessage());
+            System.err.println("Erro ao fechar a conexão: " + exception.getMessage());
         }
     }
 
