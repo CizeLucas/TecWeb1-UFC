@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import model.Usuario;
 import model.UsuariosDAO;
 
-public class DadosUsuario implements HttpHandler {
+public class RetornaDadosUsuario implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if(exchange.getRequestMethod().equals("POST")) {
@@ -27,15 +27,11 @@ public class DadosUsuario implements HttpHandler {
             UserData dadosUsuario = new UserData();
             int statusCode = 200;
 
-            if (pedidoDados.pedido.equals("retornarDados")) {
-                Usuario usuario = usuariosDAO.getUsuario(pedidoDados.login);
-                dadosUsuario.login = usuario.getLogin();
-                dadosUsuario.texto = usuario.getPersonalText();
-                dadosUsuario.numero = usuario.getNumero();
-                dadosUsuario.admin = usuario.isAdmin();
-            } else if (pedidoDados.pedido.equals("salvarTexto")) {
-                usuariosDAO.setPersonalText(pedidoDados.login, pedidoDados.texto);
-            }
+            Usuario usuario = usuariosDAO.getUsuario(pedidoDados.login);
+            dadosUsuario.login = usuario.getLogin();
+            dadosUsuario.texto = usuario.getPersonalText();
+            dadosUsuario.numero = usuario.getNumero();
+            dadosUsuario.admin = usuario.isAdmin();
 
             usuariosDAO.close();
 
@@ -52,8 +48,6 @@ public class DadosUsuario implements HttpHandler {
 
     private static class UserDataRequest {
         String login;
-        String pedido;
-        String texto;
     }
 
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
