@@ -7,7 +7,7 @@ if (!usuario) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ login: usuario })
+        body: JSON.stringify({ login: usuario, pedido: "retornarDados" })
     })
     .then(response => response.json())
     .then(data => {
@@ -20,3 +20,17 @@ if (!usuario) {
         alert("Erro ao carregar dados do usuário.");
     });
 }
+
+document.getElementById("salvarTexto").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const texto = getElementById("textoUsuario").textContent;
+
+    fetch("/DadosUsuario", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ login: usuario, pedido: "salvarTexto", texto: texto })
+    })
+})

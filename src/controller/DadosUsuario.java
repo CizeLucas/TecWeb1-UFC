@@ -27,11 +27,15 @@ public class DadosUsuario implements HttpHandler {
             UserData dadosUsuario = new UserData();
             int statusCode = 200;
 
-            Usuario usuario = usuariosDAO.getUsuario(pedidoDados.login);
-            dadosUsuario.login = usuario.getLogin();
-            dadosUsuario.texto = usuario.getPersonalText();
-            dadosUsuario.numero = usuario.getNumero();
-            dadosUsuario.admin = usuario.isAdmin();
+            if (pedidoDados.pedido.equals("retornarDados")) {
+                Usuario usuario = usuariosDAO.getUsuario(pedidoDados.login);
+                dadosUsuario.login = usuario.getLogin();
+                dadosUsuario.texto = usuario.getPersonalText();
+                dadosUsuario.numero = usuario.getNumero();
+                dadosUsuario.admin = usuario.isAdmin();
+            } else if (pedidoDados.pedido.equals("salvarTexto")) {
+                usuariosDAO.setPersonalText(pedidoDados.login, pedidoDados.texto);
+            }
 
             usuariosDAO.close();
 
@@ -48,6 +52,8 @@ public class DadosUsuario implements HttpHandler {
 
     private static class UserDataRequest {
         String login;
+        String pedido;
+        String texto;
     }
 
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
