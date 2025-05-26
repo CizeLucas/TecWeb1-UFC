@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import model.Usuario;
 import model.UsuariosDAO;
 
 public class SalvaDadosUsuario implements HttpHandler {
