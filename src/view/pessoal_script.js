@@ -14,6 +14,13 @@ if (!usuario) {
         document.getElementById("loginUsuario").textContent = data.login;
         document.getElementById("textoUsuario").textContent = data.texto;
         document.getElementById("numeroUsuario").value = data.numero;
+
+        if (!data.admin) {
+            const admin_link = document.getElementById("admin_link");
+            admin_link.style.pointerEvents = "none";
+            admin_link.style.opacity = "0.5";
+            admin_link.title = "Apenas para admin";
+        }
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);
