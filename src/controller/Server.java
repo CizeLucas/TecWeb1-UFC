@@ -17,7 +17,9 @@ public class Server {
 
             server.createContext("/VerificaRegistro", new VerificaRegistro());
 
-            server.createContext("/DadosUsuario", new DadosUsuario());
+            server.createContext("/RetornaDadosUsuario", new RetornaDadosUsuario());
+
+            server.createContext("/SalvaDadosUsuario", new SalvaDadosUsuario());
 
             server.setExecutor(null); // creates a default executor
             server.start();
