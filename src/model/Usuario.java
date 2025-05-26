@@ -23,6 +23,10 @@ public class Usuario {
         return login;
     }
 
+    public String getSenha_hash() {
+        return senha_hash;
+    }
+
     public boolean VerificaSenha(String senha) {
         return SHA1.toHash(senha).equals(senha_hash);
     }
