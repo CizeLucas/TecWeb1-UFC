@@ -5,13 +5,14 @@ Se trata de um site que centralize interações sociais, acadêmicas e interdisc
 ### Projeto
 - [ ] Site
 - [ ] Site no ar
-- [ ] Login?
+- [x] Login
 - [ ] Chats?
-- [ ] Banco de dados
+- [x] Banco de dados
 
 ### Artefatos
 - [x] Proposta Inicial
 - [ ] Documento de Requisitos
+- [ ] Prototipo inicial
 
 ### Instruções
 
