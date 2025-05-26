@@ -33,6 +33,8 @@ public class SalvaDadosUsuario implements HttpHandler {
 
             usuariosDAO.close();
 
+            exchange.sendResponseHeaders(200,-1);
+
             exchange.close();
         }
     }
