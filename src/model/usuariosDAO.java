@@ -39,6 +39,7 @@ public class UsuariosDAO {
             System.err.println("Erro ao buscar usuários: " + exception.getMessage());
         }
 
+        System.out.println("Sucesso ao retornar todos os usuários");
         return usuarios;
     }
 
@@ -81,12 +82,13 @@ public class UsuariosDAO {
             System.err.println("Erro ao verificar login: " + exception.getMessage());
         }
 
+        System.out.println("Sucesso ao verificar existencia do login: " + login);
         return existe;
     }
 
     public boolean verificaSenha(String login, String senha) {
         String sql = "SELECT * FROM usuarios WHERE login = ? AND senha_hash = ?";
-        boolean existe = false;
+        boolean senha_correta = false;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, login);
@@ -94,13 +96,14 @@ public class UsuariosDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                existe = true;
+                senha_correta = true;
             }
         } catch (SQLException exception) {
             System.err.println("Erro ao verificar senha: " + exception.getMessage());
         }
 
-        return existe;
+        System.out.println("Sucesso ao verificar senha para login: " + login);
+        return senha_correta;
     }
 
     public void addUsuario(String login, String senha) {
@@ -125,7 +128,7 @@ public class UsuariosDAO {
             preparedStatement.setString(2, login);
 
             preparedStatement.executeUpdate();
-            System.out.println("Sucesso ao editar o texto do login: " + login + ", para: " + numero);
+            System.out.println("Sucesso ao editar o numero do login: " + login + ", para: " + numero);
         } catch (SQLException exception) {
             System.err.println("Erro ao atualizar número: " + exception.getMessage());
         }
@@ -153,6 +156,7 @@ public class UsuariosDAO {
             preparedStatement.setString(2, login);
 
             preparedStatement.executeUpdate();
+            System.out.println("Sucesso ao atualizar o status de admin do login: " + login + ", para: " + admin);
         } catch (SQLException exception) {
             System.err.println("Erro ao atualizar admin: " + exception.getMessage());
         }
@@ -166,6 +170,7 @@ public class UsuariosDAO {
             preparedStatement.setString(2, login);
 
             preparedStatement.executeUpdate();
+            System.out.println("Sucesso ao alterar a senha do login: " + login);
         } catch (SQLException exception) {
             System.err.println("Erro ao atualizar senha: " + exception.getMessage());
         }
@@ -177,6 +182,8 @@ public class UsuariosDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, login);
             preparedStatement.executeUpdate();
+
+            System.out.println("Sucesso ao deletar registro do login: " + login);
         } catch (SQLException exception) {
             System.err.println("Erro ao deletar usuário: " + exception.getMessage());
         }
