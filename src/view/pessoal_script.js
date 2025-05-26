@@ -24,7 +24,11 @@ if (!usuario) {
 document.getElementById("salvarTexto").addEventListener("submit", function(event) {
     event.preventDefault();
 
+    console.log("botão de salvar texto pressionado");
+
     const texto = getElementById("textoUsuario").textContent;
+
+    console.log("texto a ser salvo: " + texto);
 
     fetch("/DadosUsuario", {
         method: "POST",
