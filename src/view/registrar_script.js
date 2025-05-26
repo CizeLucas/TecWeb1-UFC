@@ -26,9 +26,7 @@ document.getElementById("registrar_box").addEventListener("submit", function (ev
         } else if (!data.senhas_iguais) {
             alert("Senhas não são iguais");
         } else {
-            alert("Deu certo, mas o registro não foi feito pq o programador ainda precisa fazer essa parte");
-            // TODO: Mandar servidor criar novo registro
-            // TODO: Redirecionar para pagina de login
+            window.location.href = "login.html";
         }
 
     })
