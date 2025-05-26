@@ -21,7 +21,9 @@ document.getElementById("login_box").addEventListener("submit", function (event)
 
         if (data.login_existe && data.senha_correta) {
             alert("Login realizado com sucesso!");
-            // TODO: Redirecionar para página pessoal
+
+            sessionStorage.setItem("usuarioLogado", login);
+            window.location.href = "pessoal.html";
         } else if (data.login_existe && !data.senha_correta) {
             alert("Senha incorreta!");
         } else {
