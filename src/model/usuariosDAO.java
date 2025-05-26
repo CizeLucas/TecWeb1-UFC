@@ -54,7 +54,7 @@ public class UsuariosDAO {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
                 int numero = resultSet.getInt("numero");
-                String personalText = resultSet.getString("personalText");
+                String personalText = resultSet.getString("personal_text");
 
                 usuario = new Usuario(login, senha_hash, admin, numero, personalText);
             }
