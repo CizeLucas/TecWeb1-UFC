@@ -39,7 +39,7 @@ document.getElementById("text_box").addEventListener("submit", function(event) {
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);
-        alert("Erro ao carregar dados do usuário.");
+        alert("Erro ao salvar dados do usuário.");
     });
 })
 
@@ -61,6 +61,6 @@ document.getElementById("number_box").addEventListener("submit", function(event)
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);
-        alert("Erro ao carregar dados do usuário.");
+        alert("Erro ao salvar dados do usuário.");
     });
 })
