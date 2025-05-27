@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 
 import Usuario.*;
 
+import Sessao.Sessoes;
+
 public class RetornaDadosUsuario implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -23,18 +25,25 @@ public class RetornaDadosUsuario implements HttpHandler {
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             usuariosDAO.connect();
 
-            UserData dadosUsuario = new UserData();
+            UserDataResponse respostaDadosUsuario = new UserDataResponse();
             int statusCode = 200;
 
-            Usuario usuario = usuariosDAO.getUsuario(pedidoDados.login);
-            dadosUsuario.login = usuario.getLogin();
-            dadosUsuario.texto = usuario.getPersonalText();
-            dadosUsuario.numero = usuario.getNumero();
-            dadosUsuario.admin = usuario.isAdmin();
+            String login = Sessoes.getLogin(pedidoDados.token);
+
+            if (login != null) {
+                Usuario usuario = usuariosDAO.getUsuario(login);
+
+                respostaDadosUsuario.login = usuario.getLogin();
+                respostaDadosUsuario.texto = usuario.getPersonalText();
+                respostaDadosUsuario.numero = usuario.getNumero();
+                respostaDadosUsuario.admin = usuario.isAdmin();
+            } else {
+                respostaDadosUsuario.authentication = false;
+            }
 
             usuariosDAO.close();
 
-            String respostaJson = gson.toJson(dadosUsuario, UserData.class);
+            String respostaJson = gson.toJson(respostaDadosUsuario, UserDataResponse.class);
 
             exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
             exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
@@ -46,14 +55,16 @@ public class RetornaDadosUsuario implements HttpHandler {
     }
 
     private static class UserDataRequest {
-        String login;
+        String token;
     }
 
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
-    private static class UserData {
+    private static class UserDataResponse {
         String login;
         String texto;
         int numero;
         boolean admin;
+
+        boolean authentication = true;
     }
 }

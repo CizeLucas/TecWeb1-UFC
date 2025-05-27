@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 
 import Usuario.UsuariosDAO;
 
+import Sessao.Sessao;
+
 public class VerificaLogin implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -31,7 +33,10 @@ public class VerificaLogin implements HttpHandler {
                 if (usuariosDAO.verificaSenha(pedidoLogin.login, pedidoLogin.senha)) {
                     System.out.println("senha correta para login: " + pedidoLogin.login);
 
+                    Sessao novaSessao = new Sessao(pedidoLogin.login);
+
                     respostaRegistro.senha_correta = true;
+                    respostaRegistro.token = novaSessao.getToken();
                 } else {
                     System.out.println("senha incorreta para login: " + pedidoLogin.login);
 
@@ -66,5 +71,6 @@ public class VerificaLogin implements HttpHandler {
     private static class LoginResponse {
         boolean login_existe;
         boolean senha_correta;
+        String token;
     }
 }

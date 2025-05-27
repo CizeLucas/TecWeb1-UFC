@@ -1,5 +1,12 @@
-const usuario = sessionStorage.getItem("usuarioLogado");
-if (!usuario) {
+const token = sessionStorage.getItem("tokenUsuario");
+
+const admin_link = document.getElementById("admin_link");
+admin_link.style.pointerEvents = "none";
+admin_link.style.opacity = "0.5";
+admin_link.title = "Apenas para admin";
+
+if (!token) {
+    console.log("Tentativa de entrar em pessoal.html sem token")
     window.location.href = "login.html";
 } else {
     fetch("/RetornaDadosUsuario", {
@@ -7,19 +14,22 @@ if (!usuario) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ login: usuario })
+        body: JSON.stringify({ token: token })
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById("loginUsuario").textContent = data.login;
-        document.getElementById("textoUsuario").textContent = data.texto;
-        document.getElementById("numeroUsuario").value = data.numero;
+        if (!data.authentication) {
+            alert("token de validação enviado não pertence a nenhuma sessão ativa, tentativa de invasão detectada");
+        } else {
+            document.getElementById("loginUsuario").textContent = data.login;
+            document.getElementById("textoUsuario").textContent = data.texto;
+            document.getElementById("numeroUsuario").value = data.numero;
 
-        if (!data.admin) {
-            const admin_link = document.getElementById("admin_link");
-            admin_link.style.pointerEvents = "none";
-            admin_link.style.opacity = "0.5";
-            admin_link.title = "Apenas para admin";
+            if (data.admin) {
+                admin_link.style.pointerEvents = "auto";
+                admin_link.style.opacity = "1";
+                admin_link.title = "";
+            }
         }
     })
     .catch(error => {

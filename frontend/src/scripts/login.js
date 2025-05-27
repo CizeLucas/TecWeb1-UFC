@@ -22,7 +22,7 @@ document.getElementById("login_box").addEventListener("submit", function (event)
         if (data.login_existe && data.senha_correta) {
             // alert("Login realizado com sucesso!");
 
-            sessionStorage.setItem("usuarioLogado", login);
+            sessionStorage.setItem("tokenUsuario", data.token);
             window.location.href = "pessoal.html";
         } else if (data.login_existe && !data.senha_correta) {
             alert("Senha incorreta!");
