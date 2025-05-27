@@ -44,6 +44,8 @@ public class ListaUsuarios implements HttpHandler {
                     // pedido é valido e lista de usuários é obtida
                     ArrayList<Usuario> listaUsuarios = usuariosDAO.getAllUsuarios();
 
+                    respostaDados.array = new ArrayList<UserDataComplete>();
+
                     for (Usuario usuario : listaUsuarios) {
                         UserDataComplete usuarioData = new UserDataComplete();
                         
