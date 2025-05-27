@@ -20,6 +20,7 @@ if (!token) {
     .then(data => {
         if (!data.authentication) {
             alert("token de validação enviado não pertence a nenhuma sessão ativa, tentativa de invasão detectada");
+            window.location.href = "login.html"; // volta para pagina de login
         } else {
             document.getElementById("loginUsuario").textContent = data.login;
             document.getElementById("textoUsuario").textContent = data.texto;

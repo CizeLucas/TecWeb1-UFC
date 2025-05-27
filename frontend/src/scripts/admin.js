@@ -1,7 +1,7 @@
-const usuario = sessionStorage.getItem("usuarioLogado");
+const token = sessionStorage.getItem("tokenUsuario");
 
-if (!usuario) {
-    // se não tiver usuário logado, volta para pagina de login
+if (!token) {
+    console.log("Tentativa de entrar em pessoal.html sem token")
     window.location.href = "login.html";
 } else {
     fetch("/RetornaDadosUsuario", {
@@ -9,13 +9,16 @@ if (!usuario) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ login: usuario })
+        body: JSON.stringify({ token: token })
     })
     .then(response => response.json())
     .then(data => {
-        // se o usuário logado não for admin, volta para pagina de login
-        if (!data.admin) {
+        if (!data.authentication) {
+            alert("token de validação enviado não pertence a nenhuma sessão ativa, tentativa de invasão detectada");
             window.location.href = "login.html";
+        } else if (!data.admin) {
+            // se o usuário logado não for admin, volta para pagina de login
+            window.location.href = "login.html"; 
         }
     })
     .catch(error => {
