@@ -14,7 +14,7 @@ if (!token) {
     .then(response => response.json())
     .then(data => {
         if (!data.authentication) {
-            alert("token de validação enviado não pertence a nenhuma sessão ativa, tentativa de invasão detectada");
+            alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
             window.location.href = "login.html";
         } else if (!data.admin) {
             // se o usuário logado não for admin, volta para pagina de login
