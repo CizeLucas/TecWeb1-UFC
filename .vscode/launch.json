@@ -5,8 +5,13 @@
             "type": "java",
             "name": "Server",
             "request": "launch",
-            "mainClass": "controller.Server",
-            "projectName": "TecWeb1-UFC_c54af54e"
-        },
+            "mainClass": "Server.Server",
+            "cwd": "${workspaceFolder}",
+            "classPaths": [
+                "backend/bin",
+                "backend/lib/*"
+            ],
+            "vmArgs": "--enable-native-access=ALL-UNNAMED"
+        }
     ]
 }
