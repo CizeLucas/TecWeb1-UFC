@@ -31,5 +31,15 @@ public class Sessoes {
 
         return null;
     }
+
+    public static boolean ExisteToken(String token) {
+        for (Sessao sessao : Sessoes) {
+            if (sessao.getToken().equals(token)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
 }

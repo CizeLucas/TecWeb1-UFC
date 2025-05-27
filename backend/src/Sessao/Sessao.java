@@ -1,17 +1,22 @@
 package Sessao;
 
-import SHA1.SHA1;
+import java.security.SecureRandom;
+import java.util.HexFormat;
 
 public class Sessao {
-    
-    private static int count = 0;
 
     private String token;
     private String login;
 
     public Sessao(String login) {
-        count++;
-        this.token = SHA1.toHash(String.valueOf(count));
+        do {
+            SecureRandom random = new SecureRandom();
+            byte[] bytes = new byte[32];
+            random.nextBytes(bytes);
+
+            this.token = HexFormat.of().formatHex(bytes);
+        } while (Sessoes.ExisteToken(token));
+
         this.login = login;
 
         System.out.println("nova sessão iniciada com login: " + login + " e token: " + token);
