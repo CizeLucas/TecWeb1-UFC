@@ -5,9 +5,9 @@ REM Compila e executa o Server.java
 REM Ajuste o caminho do javac e java se necessário
 
 REM Compilar todos os arquivos .java do src
-javac -cp ".;lib/*" -d bin src\model\*.java src\controller\*.java
+javac -cp ".;lib/*" -d bin backend\src\model\*.java backend\src\controller\*.java
 
 REM Executar o servidor
-java --enable-native-access=ALL-UNNAMED -cp ".;bin;lib/*" controller.Server
+java --enable-native-access=ALL-UNNAMED -cp ".;backend;bin;lib/*" controller.Server
 
 pause
