@@ -1,10 +1,10 @@
 {
-    "java.project.outputPath": "bin",
+    "java.project.outputPath": "backend/bin",
     "java.project.sourcePaths": [
-        "src"
+        "backend/src"
     ],
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "backend/lib/**/*.jar"
     ],
     "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-24"
 }
