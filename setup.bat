@@ -1,11 +1,11 @@
 @echo off
 REM Cria o banco de dados db/dados.db usando o esquema db/esquema.sql
 
-IF NOT EXIST db (
-    mkdir db
+IF NOT EXIST backend\db (
+    mkdir backend\db
 )
 
-sqlite3 db\dados.db < db\esquema.sql
+sqlite3 backend\db\dados.db < backend\db\esquema.sql
 
-echo Banco de dados criado com sucesso em db\dados.db
+echo Banco de dados criado com sucesso em backend\db\dados.db
 pause
