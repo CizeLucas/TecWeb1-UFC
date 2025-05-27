@@ -27,7 +27,13 @@ if (!token) {
     });
 }
 
-fetch("/ListaUsuarios")
+fetch("/ListaUsuarios", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ token: token })
+})
 .then(response => response.json())
 .then(data => {
     const corpo_tabela = document.getElementById("tabelaUsuarios").querySelector("tbody");

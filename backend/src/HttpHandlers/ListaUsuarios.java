@@ -11,43 +11,74 @@ import java.util.ArrayList;
 
 import Usuario.*;
 
+import Sessao.Sessoes;
+
 public class ListaUsuarios implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        UsuariosDAO usuariosDAO = new UsuariosDAO();
-        ArrayUsuarios arrayUsuarios = new ArrayUsuarios();
+        if(exchange.getRequestMethod().equals("POST")) {
+            InputStream input = exchange.getRequestBody();
+            String inputString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
 
-        usuariosDAO.connect();
-        ArrayList<Usuario> listaUsuarios = usuariosDAO.getAllUsuarios();
-        usuariosDAO.close();
+            Gson gson = new Gson();
+            AllUserDataRequest pedidoDados = gson.fromJson(inputString, AllUserDataRequest.class);
 
-        arrayUsuarios.array = new ArrayList<UserDataComplete>();
+            String login_admin = Sessoes.getLogin(pedidoDados.token);
 
-        for (Usuario usuario : listaUsuarios) {
-            UserDataComplete usuarioData = new UserDataComplete();
-            
-            usuarioData.login = usuario.getLogin();
-            usuarioData.senha_hash = usuario.getSenha_hash();
-            usuarioData.texto = usuario.getPersonalText();
-            usuarioData.numero = usuario.getNumero();
-            usuarioData.admin = usuario.isAdmin();
+            AllUserDAtaResponse respostaDados = new AllUserDAtaResponse();
 
-            arrayUsuarios.array.add(usuarioData);
-        }
+            if (login_admin == null) {
+                // token não pertence a nenhuma sessão ativa
 
-        Gson gson = new Gson();
-        String respostaJson = gson.toJson(arrayUsuarios, ArrayUsuarios.class);
+                respostaDados.authentication = false;
+            } else {
+                UsuariosDAO usuariosDAO = new UsuariosDAO();
+                usuariosDAO.connect();
 
-        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-        exchange.sendResponseHeaders(200, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+                if (!usuariosDAO.getUsuario(login_admin).isAdmin()) {
+                    // token pertence a uma sessão ativa, mas o usuário não é um admin
 
-        OutputStream respostaHttp = exchange.getResponseBody();
-        respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
-        respostaHttp.close();
+                    respostaDados.authentication = false;
+                } else {
+                    // pedido é valido e lista de usuários é obtida
+                    ArrayList<Usuario> listaUsuarios = usuariosDAO.getAllUsuarios();
+
+                    for (Usuario usuario : listaUsuarios) {
+                        UserDataComplete usuarioData = new UserDataComplete();
+                        
+                        usuarioData.login = usuario.getLogin();
+                        usuarioData.senha_hash = usuario.getSenha_hash();
+                        usuarioData.texto = usuario.getPersonalText();
+                        usuarioData.numero = usuario.getNumero();
+                        usuarioData.admin = usuario.isAdmin();
+
+                        respostaDados.array.add(usuarioData);
+                    }
+                }
+
+                usuariosDAO.close();
+            }
+
+            String respostaJson = gson.toJson(respostaDados, AllUserDAtaResponse.class);
+
+            exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(200, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+
+            OutputStream respostaHttp = exchange.getResponseBody();
+            respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
+            respostaHttp.close();
+        }  
     }
 
-    private static class ArrayUsuarios {
+    private static class AllUserDataRequest {
+        String token;
+    }
+
+    @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
+    private static class AllUserDAtaResponse {
         ArrayList<UserDataComplete> array;
+
+        boolean authentication = true;
     }
 
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
