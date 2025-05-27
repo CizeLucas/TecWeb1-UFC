@@ -19,7 +19,7 @@ if (!token) {
     .then(response => response.json())
     .then(data => {
         if (!data.authentication) {
-            alert("token de validação enviado não pertence a nenhuma sessão ativa, tentativa de invasão detectada");
+            alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
             window.location.href = "login.html"; // volta para pagina de login
         } else {
             document.getElementById("loginUsuario").textContent = data.login;
@@ -53,7 +53,14 @@ document.getElementById("text_box").addEventListener("submit", function(event) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ login: usuario, data_to_save: "text", text: texto })
+        body: JSON.stringify({ token: token, data_to_save: "text", text: texto })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.authentication) {
+            alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
+            window.location.href = "login.html"; // volta para pagina de login
+        }
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);
@@ -75,7 +82,14 @@ document.getElementById("number_box").addEventListener("submit", function(event)
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ login: usuario, data_to_save: "number", number: numero })
+        body: JSON.stringify({ token: token, data_to_save: "number", number: numero })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.authentication) {
+            alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
+            window.location.href = "login.html"; // volta para pagina de login
+        }
     })
     .catch(error => {
         console.error("Erro ao buscar dados do usuário:", error);

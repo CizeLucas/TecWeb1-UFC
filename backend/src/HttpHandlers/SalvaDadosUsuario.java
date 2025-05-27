@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 
 import Usuario.UsuariosDAO;
 
+import Sessao.Sessoes;
+
 public class SalvaDadosUsuario implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -19,30 +21,51 @@ public class SalvaDadosUsuario implements HttpHandler {
 
             Gson gson = new Gson();
             SaveDataRequest pedidoDadosSalvar = gson.fromJson(inputString, SaveDataRequest.class);
+            SaveDataResponse respostaDadosSalvar = new SaveDataResponse();
 
-            UsuariosDAO usuariosDAO = new UsuariosDAO();
-            usuariosDAO.connect();
+            String login = Sessoes.getLogin(pedidoDadosSalvar.token);
 
-            if (pedidoDadosSalvar.data_to_save.equals("text")) {
-                usuariosDAO.setPersonalText(pedidoDadosSalvar.login, pedidoDadosSalvar.text);
-            } else if (pedidoDadosSalvar.data_to_save.equals("number")) {
-                usuariosDAO.setNumero(pedidoDadosSalvar.login, pedidoDadosSalvar.number);
+            int statusCode = 200;
+
+            if (login == null) {
+                // token não pertence a nenhuma sessão ativa
+                statusCode = 401; // não autorizado
+                respostaDadosSalvar.authentication = false;
             } else {
-                System.err.println("Erro ao processar pedido de salvar, dado desconhecido: " + pedidoDadosSalvar.data_to_save);;
+                UsuariosDAO usuariosDAO = new UsuariosDAO();
+                usuariosDAO.connect();
+
+                if (pedidoDadosSalvar.data_to_save.equals("text")) {
+                    usuariosDAO.setPersonalText(login, pedidoDadosSalvar.text);
+                } else if (pedidoDadosSalvar.data_to_save.equals("number")) {
+                    usuariosDAO.setNumero(login, pedidoDadosSalvar.number);
+                } else {
+                    System.err.println("Erro ao processar pedido de salvar, dado desconhecido: " + pedidoDadosSalvar.data_to_save);;
+                }
+
+                usuariosDAO.close();
             }
 
-            usuariosDAO.close();
+            String respostaJson = gson.toJson(respostaDadosSalvar, SaveDataResponse.class);
 
-            exchange.sendResponseHeaders(200,-1);
+            exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
 
-            exchange.close();
+            OutputStream respostaHttp = exchange.getResponseBody();
+            respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
+            respostaHttp.close();
         }
     }
 
     private static class SaveDataRequest {
-        String login;
+        String token;
         String data_to_save;
         String text;
         int number;
+    }
+
+    @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
+    private static class SaveDataResponse {
+        boolean authentication = true;
     }
 }

@@ -22,14 +22,15 @@ public class ListaUsuarios implements HttpHandler {
 
             Gson gson = new Gson();
             AllUserDataRequest pedidoDados = gson.fromJson(inputString, AllUserDataRequest.class);
+            AllUserDAtaResponse respostaDados = new AllUserDAtaResponse();
 
             String login_admin = Sessoes.getLogin(pedidoDados.token);
 
-            AllUserDAtaResponse respostaDados = new AllUserDAtaResponse();
+            int statusCode = 200;
 
             if (login_admin == null) {
                 // token não pertence a nenhuma sessão ativa
-
+                statusCode = 401; // não autorizado
                 respostaDados.authentication = false;
             } else {
                 UsuariosDAO usuariosDAO = new UsuariosDAO();
@@ -37,7 +38,7 @@ public class ListaUsuarios implements HttpHandler {
 
                 if (!usuariosDAO.getUsuario(login_admin).isAdmin()) {
                     // token pertence a uma sessão ativa, mas o usuário não é um admin
-
+                    statusCode = 401; // não autorizado
                     respostaDados.authentication = false;
                 } else {
                     // pedido é valido e lista de usuários é obtida
@@ -62,7 +63,7 @@ public class ListaUsuarios implements HttpHandler {
             String respostaJson = gson.toJson(respostaDados, AllUserDAtaResponse.class);
 
             exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-            exchange.sendResponseHeaders(200, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+            exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
 
             OutputStream respostaHttp = exchange.getResponseBody();
             respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));

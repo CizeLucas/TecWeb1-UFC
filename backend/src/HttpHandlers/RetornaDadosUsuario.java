@@ -21,27 +21,29 @@ public class RetornaDadosUsuario implements HttpHandler {
 
             Gson gson = new Gson();
             UserDataRequest pedidoDados = gson.fromJson(inputString, UserDataRequest.class);
-
-            UsuariosDAO usuariosDAO = new UsuariosDAO();
-            usuariosDAO.connect();
-
             UserDataResponse respostaDadosUsuario = new UserDataResponse();
-            int statusCode = 200;
 
             String login = Sessoes.getLogin(pedidoDados.token);
 
-            if (login != null) {
+            int statusCode = 200;
+
+            if (login == null) {
+                // token não pertence a nenhuma sessão ativa portanto os dados não são retornados
+                statusCode = 401; // não autorizado
+                respostaDadosUsuario.authentication = false;
+            } else {
+                UsuariosDAO usuariosDAO = new UsuariosDAO();
+                usuariosDAO.connect();
+
                 Usuario usuario = usuariosDAO.getUsuario(login);
 
                 respostaDadosUsuario.login = usuario.getLogin();
                 respostaDadosUsuario.texto = usuario.getPersonalText();
                 respostaDadosUsuario.numero = usuario.getNumero();
                 respostaDadosUsuario.admin = usuario.isAdmin();
-            } else {
-                respostaDadosUsuario.authentication = false;
-            }
 
-            usuariosDAO.close();
+                usuariosDAO.close();
+            }
 
             String respostaJson = gson.toJson(respostaDadosUsuario, UserDataResponse.class);
 

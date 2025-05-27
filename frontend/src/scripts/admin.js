@@ -36,18 +36,23 @@ fetch("/ListaUsuarios", {
 })
 .then(response => response.json())
 .then(data => {
-    const corpo_tabela = document.getElementById("tabelaUsuarios").querySelector("tbody");
-    data.array.forEach(usuario => {
-        const linha_tr = document.createElement("tr");
-        linha_tr.innerHTML = `
-            <td>${usuario.login}</td>
-            <td>${usuario.texto}</td>
-            <td>${usuario.numero}</td>
-            <td>${usuario.admin ? "Sim" : "Não"}</td>
-            <td>${usuario.senha_hash}</td>
-        `
-        corpo_tabela.appendChild(linha_tr);
-    });
+    if (!data.authentication) {
+        alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
+        window.location.href = "login.html"; // volta para pagina de login
+    } else {
+        const corpo_tabela = document.getElementById("tabelaUsuarios").querySelector("tbody");
+        data.array.forEach(usuario => {
+            const linha_tr = document.createElement("tr");
+            linha_tr.innerHTML = `
+                <td>${usuario.login}</td>
+                <td>${usuario.texto}</td>
+                <td>${usuario.numero}</td>
+                <td>${usuario.admin ? "Sim" : "Não"}</td>
+                <td>${usuario.senha_hash}</td>
+            `
+            corpo_tabela.appendChild(linha_tr);
+        });
+    }
 })
 .catch(error => {
     alert("Erro ao carregar usuários.");
