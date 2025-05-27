@@ -28,6 +28,8 @@ Baixe e installe um JDK
 Execute setup.bat para criar o banco de dados na sua maquina.
 
 #### Iniciar o site/servidor
-Execute run_server.bat para iniciar o servidor
+Compile os arquivos java com `compile_java.bat`
 
-Entre no site via o link em site.lnk
+Execute `run_server.bat` para iniciar o servidor
+
+Entre no site via o link em `site.lnk`
