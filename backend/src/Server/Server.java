@@ -1,6 +1,8 @@
-package controller;
+package Server;
 
 import com.sun.net.httpserver.HttpServer;
+
+import HttpHandlers.*;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

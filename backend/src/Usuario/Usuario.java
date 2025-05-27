@@ -1,4 +1,6 @@
-package model;
+package Usuario;
+
+import SHA1.SHA1;
 
 public class Usuario {
 

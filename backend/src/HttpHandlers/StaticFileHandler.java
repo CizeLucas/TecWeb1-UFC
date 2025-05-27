@@ -1,4 +1,4 @@
-package controller;
+package HttpHandlers;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;

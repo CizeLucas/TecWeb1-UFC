@@ -1,4 +1,4 @@
-package controller;
+package HttpHandlers;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -9,8 +9,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import model.Usuario;
-import model.UsuariosDAO;
+import Usuario.*;
 
 public class ListaUsuarios implements HttpHandler {
     @Override

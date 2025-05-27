@@ -1,7 +1,9 @@
-package model;
+package Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+import SHA1.SHA1;
 
 public class UsuariosDAO {  
 

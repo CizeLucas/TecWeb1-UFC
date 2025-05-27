@@ -1,4 +1,4 @@
-package controller;
+package HttpHandlers;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import model.UsuariosDAO;
+import Usuario.UsuariosDAO;
 
 public class SalvaDadosUsuario implements HttpHandler {
     @Override
