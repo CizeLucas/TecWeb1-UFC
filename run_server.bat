@@ -1,13 +1,11 @@
 @echo off
-REM filepath: c:\Users\user\Documents\UFC\tecweb 2025.1\TecWeb1-UFC\run_server.bat
 REM Compila e executa o Server.java
 
-REM Ajuste o caminho do javac e java se necessário
-
 REM Compilar todos os arquivos .java do src
-javac -cp ".;lib/*" -d bin backend\src\model\*.java backend\src\controller\*.java
+javac -cp "backend/lib/*" -d backend/bin backend/src/model/*.java backend/src/controller/*.java
 
 REM Executar o servidor
-java --enable-native-access=ALL-UNNAMED -cp ".;backend;bin;lib/*" controller.Server
+java --enable-native-access=ALL-UNNAMED -cp "backend/bin;backend/lib/*" controller.Server
 
 pause
+REM filepath: c:\Users\user\Documents\UFC\tecweb 2025.1\TecWeb1-UFC\run_server.bat
