@@ -1,0 +1,4 @@
+db.url=jdbc:postgresql://SEU_HOST:PORTA/SEU_BANCO
+db.user=SEU_USUARIO
+db.database=SEU_BANCO
+db.password=SUA_SENHA
