@@ -8,4 +8,4 @@ CREATE TABLE usuarios (
 
 -- login: admin, senha: admin
 INSERT INTO usuarios (login, senha_hash, admin) VALUES
-('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1);
+('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', True);
