@@ -1,3 +1,11 @@
 {
+    "java.project.outputPath": "backend/bin",
+    "java.project.sourcePaths": [
+        "backend/src"
+    ],
+    "java.project.referencedLibraries": [
+        "backend/lib/**/*.jar"
+    ],
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-24",
     "liveServer.settings.port": 5501
 }
