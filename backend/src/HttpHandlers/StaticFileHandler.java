@@ -21,7 +21,7 @@ public class StaticFileHandler implements HttpHandler {
 
         // Redireciona raiz para index.html
         if (requestedPath.equals("/")) {
-            requestedPath = "/index.html";
+            requestedPath = "/landing_page.html";
         }
 
         // Tenta primeiro na raiz de frontend/src
@@ -38,6 +38,7 @@ public class StaticFileHandler implements HttpHandler {
             String mime = "text/html";
             if (requestedPath.endsWith(".css")) mime = "text/css";
             if (requestedPath.endsWith(".js")) mime = "application/javascript";
+            if (requestedPath.endsWith(".svg")) mime = "image/svg+xml";
             if (requestedPath.endsWith(".png")) mime = "image/png";
             if (requestedPath.endsWith(".jpg") || requestedPath.endsWith(".jpeg")) mime = "image/jpeg";
             if (requestedPath.endsWith(".ico")) mime = "image/x-icon";
