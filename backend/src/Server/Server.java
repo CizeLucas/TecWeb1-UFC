@@ -13,9 +13,9 @@ public class Server {
         try {
             HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-            server.createContext("/VerificaLogin", new VerificaLogin());
-
             server.createContext("/", new StaticFileHandler());
+
+            server.createContext("/VerificaLogin", new VerificaLogin());
 
             server.createContext("/VerificaRegistro", new VerificaRegistro());
 
