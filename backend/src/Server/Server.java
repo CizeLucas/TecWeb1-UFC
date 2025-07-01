@@ -15,7 +15,7 @@ public class Server {
 
             server.createContext("/VerificaLogin", new VerificaLogin());
 
-            server.createContext("/frontend/src/", new StaticFileHandler());
+            server.createContext("/", new StaticFileHandler());
 
             server.createContext("/VerificaRegistro", new VerificaRegistro());
 
