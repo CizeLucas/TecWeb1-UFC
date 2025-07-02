@@ -1,4 +1,4 @@
-document.getElementById("registrar_box").addEventListener("submit", function (event) {
+document.getElementById("register_box").addEventListener("submit", function (event) {
     event.preventDefault();
 
     const login = document.getElementById("login").value;
@@ -34,4 +34,4 @@ document.getElementById("registrar_box").addEventListener("submit", function (ev
         console.error("Erro ao processar login:", error);
         alert("Erro ao tentar fazer registro.");
     })
-})
+});

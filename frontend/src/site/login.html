@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ConectaUFC</title>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="./styles/general.css">
-        <link rel="stylesheet" href="./styles/login.css">
-    </head>
- <body>
-     <div id="login-container" class="container">
-         <div id="login_box" class="login-box">
-                <div id="form-box" class="input_login_registrar">
-                  <div class="logo-container-with-text">
-                    <img src="../../assets/ConectaUFCLogo.svg" alt="logo" class="img-logo">
-                    <span class="texto-logo">Conecta<span class="highlight">UFC</span></span>
-                  </div>
-                  <h2 class="bem-vindo">Bem-vindo!</h2>
-                  <form class="form-info">
-                     <label class="login-imput" for="login">E-mail:</label>
-                     <input type="text" id="login" name="login" required>
+      <title>ConectaUFC</title>
+      <link rel="icon" type="image/x-icon" href="../../assets/ConectaUFCLogo.png">
 
-                     <label for="senha">Senha:</label>
-                     <input type="password" id="senha" name="senha" required>
-                       <div class="botoes">
-                          <button id="login_button" class="entrar">Entrar</button>
-                         <button id="create_account_button" class="criar-conta">Criar Conta</button>
-                       </div>
-                     <a href="#" class="forgot-password">Esqueceu a senha?</a>
-                    </form>
-                </div>
-               <div class="img-section">
-                 <img src="../assets/estudantes.jpg" alt="estudante" class="estudantes">
-               </div>
-         </div>
-     </div>
-        <script src="../scripts/login.js"></script>
- </body>
+      <link rel="stylesheet" href="./styles/general.css">
+      <link rel="stylesheet" href="./styles/login.css">
+  </head>
+  <body>
+      <div id="login-container" class="container">
+        <div id="login_box" class="login-box">
+
+          <div id="form-box" class="input_login_registrar">
+
+            <div class="logo-container-with-text">
+              <img src="../../assets/ConectaUFCLogo.svg" alt="logo" class="img-logo">
+              <span class="texto-logo">Conecta<span class="highlight">UFC</span></span>
+            </div>
+
+            <h2 class="bem-vindo">Bem-vindo!</h2>
+
+            <form class="form">
+              
+              <label class="login-imput" for="login">E-mail:</label>
+              <input type="text" id="login" name="login" required>
+
+              <label for="senha">Senha:</label>
+              <input type="password" id="senha" name="senha" required>
+
+              <div class="botoes">
+                <button id="login_button" class="entrar">Entrar</button>
+                <button id="create_account_button" class="criar-conta">Criar Conta</button>
+              </div>
+
+              <a href="#" class="forgot-password">Esqueceu a senha?</a>
+            </form>
+
+          </div>
+          
+          <div class="img-section">
+            <img src="../assets/estudantes.jpg" alt="Estudantes" class="imagem_estudantes">
+          </div>
+          
+        </div>
+      </div>
+          <script src="../scripts/login.js"></script>
+  </body>
 </html>

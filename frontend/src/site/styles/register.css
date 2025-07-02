@@ -4,27 +4,23 @@ body{
     align-items: center;
 }
 
-form {
-    width: 280px;
-}
-
 .container{
     margin-top: 5%;
-    width: 800px;
-    height: 450px;
+    width: 850px;
+    height: 550px;
     background-color: var(--color-white);
     border-radius: 25px;
     overflow: hidden;
     display: flex;
 }
 
-.login-box{
+.register-box{
     display: flex;
     width: 100%;
     flex-direction: row;
 }
 
-.input_login_registrar{
+.inputs_registrar{
     padding: 33px 33px;
     width: 42%;
     display: flex;
@@ -32,7 +28,7 @@ form {
     justify-content: center;
 }
 
-.bem-vindo{
+.greeting{
     font-family: var(--font-instrument-sans);
     color: var(--color-black);
     font-weight: bold;
@@ -52,7 +48,7 @@ label {
 }
 
 input {
-    width: 280px;
+    width: 100%;
     height: 38px;
     margin-top: 5px;
     margin-bottom: 10px;
@@ -63,6 +59,10 @@ input {
     font-size: 16px;
 }
 
+form {
+    width: 280px;
+}
+
 .imagem_estudantes{
     width: 100%;
     height: 100%;
@@ -71,7 +71,6 @@ input {
 }
 
 .botoes{
-    width: 301px;
     margin-top: 15px;
     margin-bottom: 16px;
     display: flex;
@@ -80,27 +79,15 @@ input {
     gap: 17px;
 }
 
-.entrar{
-    height: 36px;
-    width: 70%;
+.criar-conta{
+    height: 40px;
+    width: 140px;
     border-radius: 10px;
     background-color: var(--color-blue);
-    font-weight: bold;
     color: var(--color-white);
+    font-weight: bold;
     border: none;
     font-size: 16px;
-}
-
-.criar-conta{
-    height: 36px;
-    width: 45%;
-    border-radius: 10px;
-    background-color: var(--color-white);
-    font-weight: bold;
-    font-size: 16px;
-    color: var(--color-blue);
-    border: 2px solid;
-    border-color: var(--color-blue);   
 }
 
 .forgot-password{
@@ -109,6 +96,7 @@ input {
     font-family: var(--font-instrument-sans);
     font-weight: 600;
     text-decoration: none;
+    padding-left: 54px;
 }
 
 .logo-container-with-text {
