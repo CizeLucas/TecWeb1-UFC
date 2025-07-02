@@ -24,6 +24,7 @@ document.getElementById("login_box").addEventListener("submit", function (event)
 
             sessionStorage.setItem("tokenUsuario", data.token);
             window.location.href = "pessoal.html";
+            console.log("Token armazenado no sessionStorage:", data.token);
         } else if (data.login_existe && !data.senha_correta) {
             alert("Senha incorreta!");
         } else {
@@ -34,4 +35,8 @@ document.getElementById("login_box").addEventListener("submit", function (event)
         console.error("Erro ao processar login:", error);
         alert("Erro ao tentar fazer login.");
     })
-})
+});
+
+document.getElementById("create_account_button").addEventListener("click", function (event) {
+    window.location.href = "registrar.html"
+});
