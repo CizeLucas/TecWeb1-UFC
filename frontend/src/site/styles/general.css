@@ -72,10 +72,10 @@ header nav {
   margin: auto;
   background: linear-gradient(
     135deg,
-    rgba(243, 177, 41, 0.78) 0%,
-    #504786 38%,
-    #25356e 77%,
-    #f3b129 100%
+    var(--color-dark-yellow) 0%,
+    var(--color-purple) 38%,
+    var(--color-blue) 77%,
+    var(--color-dark-yellow) 100%
   );
 }
 
