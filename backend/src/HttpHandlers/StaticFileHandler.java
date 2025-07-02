@@ -19,7 +19,7 @@ public class StaticFileHandler implements HttpHandler {
 
         // Redireciona raiz para landing_page.html
         if (requestedPath.equals("/")) {
-            requestedPath = "/landing_page.html";
+            requestedPath = "/landing.html";
         }
 
         // Tenta primeiro em frontend
