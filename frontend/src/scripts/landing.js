@@ -2,7 +2,15 @@ document.getElementById("register_button").addEventListener("click", function (e
     window.location.href = "registrar.html"
 });
 
+document.getElementById("join_button").addEventListener("click", function (event) {
+    window.location.href = "registrar.html"
+});
+
 document.getElementById("login_button").addEventListener("click", function (event) {
+    window.location.href = "login.html"
+});
+
+document.getElementById("explore_now_button").addEventListener("click", function (event) {
     window.location.href = "login.html"
 });
 

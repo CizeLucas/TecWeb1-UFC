@@ -67,7 +67,7 @@
   overflow: hidden;
 }
 
-#explore_button {
+.explore_button {
   height: 2.5rem;
   width: 7.5rem;
   border: none;
