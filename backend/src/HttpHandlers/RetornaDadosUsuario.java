@@ -38,8 +38,6 @@ public class RetornaDadosUsuario implements HttpHandler {
                 Usuario usuario = usuariosDAO.getUsuario(login);
 
                 respostaDadosUsuario.login = usuario.getLogin();
-                respostaDadosUsuario.texto = usuario.getPersonalText();
-                respostaDadosUsuario.numero = usuario.getNumero();
                 respostaDadosUsuario.admin = usuario.isAdmin();
 
                 usuariosDAO.close();
@@ -63,8 +61,6 @@ public class RetornaDadosUsuario implements HttpHandler {
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
     private static class UserDataResponse {
         String login;
-        String texto;
-        int numero;
         boolean admin;
 
         boolean authentication = true;

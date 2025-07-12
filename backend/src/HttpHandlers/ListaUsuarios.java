@@ -51,8 +51,6 @@ public class ListaUsuarios implements HttpHandler {
                         
                         usuarioData.login = usuario.getLogin();
                         usuarioData.senha_hash = usuario.getSenha_hash();
-                        usuarioData.texto = usuario.getPersonalText();
-                        usuarioData.numero = usuario.getNumero();
                         usuarioData.admin = usuario.isAdmin();
 
                         respostaDados.array.add(usuarioData);
@@ -88,8 +86,6 @@ public class ListaUsuarios implements HttpHandler {
     private static class UserDataComplete {
         String login;
         String senha_hash;
-        String texto;
-        int numero;
         boolean admin;
     }
 }
