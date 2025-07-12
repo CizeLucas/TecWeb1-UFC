@@ -1,0 +1,516 @@
+:root {
+    --primary-color: #554B85; /* Roxo Escuro */
+    --secondary-color: #E7BF6D; /* Dourado/Amarelo para destaques */
+    --cinza-escuro: #5B544A; /* cinza mais escuro para detalhes e botoes selecionados */
+    --cinza-claro: #B2AFAD; /* cinza claro para o fundo de posts */
+    --branco: #d9d9d9; /* cards e elementos principais */
+    --texto-escuro: #585655; /*textos mais escuros*/
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: var(--texto-escuro);
+    transition: color 0.2s ease;
+}
+
+h2{
+    font-family: 'Open Sans', sans-serif;
+    color: var(--texto-escuro);
+    font-weight: 550;
+}
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    background-image: linear-gradient(to right, #554B85, #E7BF6D);
+    display: flex; /* Transforma o body em um container flexível */
+    flex-direction: column;
+}
+
+button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/*header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: rgb(91, 84, 74, 0.1);
+    padding-inline-start: 30px;
+}*/
+
+#logo{
+    font-family: 'Open Sans', sans-serif;
+    color: var(--branco);
+    font-weight: 700;
+    font-size: 35px;
+}
+
+/* .logo-container {
+    display: flexbox;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Alinha com o conteúdo principal */
+   /* margin-bottom: 1rem;
+} */
+
+.barra-naveg{
+    font-family: 'Open Sans', sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10rem;
+    background-color:#b2afad5b;
+    flex-direction: row; /* Organiza em linha para logo/busca e links */
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+    align-items: center;
+    padding: 1rem 2rem;
+    position: static; /* Fica fixo no topo */
+    top: 0;
+    z-index: 1000;
+}
+
+.barra-pesquisa{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid var(--cinza-escuro); */
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    background-color: rgb(217, 217, 217, 0.30);
+    max-width: 80%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.barra-pesquisa input{
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.95rem;
+    width: 250px;
+    color: var(--texto-escuro);
+}
+
+.barra-pesquisa button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1rem;
+    padding-right: 0.5rem;
+
+ } 
+
+.barra-pesquisa .lupa-icone {
+    color: var(--cinza-escuro); /* Cor do ícone, ajuste conforme sua paleta */
+    font-size: 1.1rem; /* Tamanho do ícone */
+    margin-left: 0.5rem; /* Espaço à esquerda para o ícone não ficar colado na borda */
+    margin-right: 0.5rem; /* Espaço à direita do ícone para separar do input */
+    opacity: 0.7; /* Garante que o ícone fique totalmente opaco e nítido */
+}
+
+.menu-icone{
+    color: var(--texto-escuro);
+    font-size: 1.5rem;
+    padding-right: 40px;
+}
+
+.barra-naveg-esquerda{
+    background-color: #d9d9d95d;
+    flex: 0 0 250px; /* Largura fixa para a sidebar */
+    border-radius: 46px;
+    padding: 1.5rem 0; /* Padding vertical, padding horizontal nos itens de navegação */
+    align-self: flex-start; /* Fixa a sidebar no topo do flex container */
+
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+
+    height: calc(100vh - 100px); /* Ajuste 100px para a altura real do seu header + margens */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    overflow-x: hidden;
+}
+
+.barra-naveg-nav{
+    margin-bottom: 2rem;
+}
+
+.barra-naveg-nav .barra-naveg-item {
+    color: var(--cinza-escuro);
+    font-weight: 300;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    padding: 0.8rem 0.8rem;
+    background-color: rgb(255, 255, 255, 0.30); /* Um tom mais claro para a barra de busca */
+    margin-bottom: 0.8rem;
+    max-width: 80%; /* Define a largura máxima como 80% do contêiner pai */
+    margin-left: auto;   /* Centraliza o item horizontalmente */
+    margin-right: auto; /* Centraliza o item horizontalmente */
+}
+
+.barra-naveg-nav .barra-naveg-item i{
+    margin-right: 1rem;
+    font-size: 1.1rem;
+    color: black;
+}
+
+.barra-naveg-nav .barra-naveg-item:hover,
+.barra-naveg-nav .barra-naveg-item.active {
+    /* background-color: rgb(85, 75, 133,0.3); */ /* hover roxinho */
+    background-color: #e7be6d73;
+    color: black;
+}
+
+.barra-naveg-nav .barra-naveg-item:hover i,
+.barra-naveg-nav .barra-naveg-item.active i {
+    color: black;
+}
+
+.barrar-naveg-direita-principal{
+    background-color: #d9d9d9;
+    flex: 0 0 250px; /* Largura fixa para a sidebar */
+    border-radius: 46px;
+    padding: 1.5rem 0; /* Padding vertical, padding horizontal nos itens de navegação */
+    align-self: flex-start; /* Fixa a sidebar no topo do flex container */
+    position: sticky; /* Sidebar fixa ao rolar */
+    top: calc(1rem + 68px + 1rem + 1px); /* Altura da navbar + espaçamento */
+    height: calc(100vh - (1rem + 68px + 1rem + 1px) - 3rem); /* Ocupa altura restante da tela */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+}
+.main-wrapper{
+    background-color: none;
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    padding: 0 2rem; /* padding horizontal para margens nas laterais */
+    border-radius: 15px;
+    display: grid; /* Usa o grid layout para as colunas */
+    /*grid-template-columns: 1fr 3fr; /* coluna esquerda (1 parte), conteúdo (3 partes)*/
+    grid-template-columns: 250px 1fr;;
+    gap: 1.5rem; /* espaçamento entre as colunas */
+}
+
+.titulo-secao { /* o título "Últimas Postagens" por exemplo*/
+    font-size: 1.6rem;
+    color: var(--texto-escuro);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.conteudo-secao {
+    background-color: #d9d9d95d;
+    border-radius: 46px;
+    padding: 1.5rem 2rem; /* Padding vertical, padding horizontal nos itens de navegação */
+    align-self: flex-start;
+}
+
+/* ESTILOS PARA OS POSTS */
+
+.post-card {
+    background-color: #d9d9d95d;
+    border-radius: 46px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem; /* espaço entre os posts */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* espaço entre header, body e footer do post */
+}
+
+/* cabeçalho do post*/
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.post-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #58565546;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--texto-escuro);
+}
+
+.post-user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-user-name {
+    font-weight: 700;
+    color: var(--texto-escuro);
+}
+
+.post-timestamp {
+    font-size: 0.8rem;
+    color: var(--cinza-escuro);
+}
+
+.post-menu-button {
+    color: var(--texto-escuro);
+    font-size: 1rem;
+}
+
+.post-menu-button:hover {
+    color: black;
+    font-size: 1rem;
+}
+
+/* corpo do post */
+.post-body p {
+    color: var(--texto-escuro);
+    margin-bottom: 1rem;
+}
+
+.post-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.8rem;
+}
+
+.gallery-item-placeholder {
+    aspect-ratio: 4 / 3; /* proporção da imagem/placeholder */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--texto-escuro);
+}
+
+/* rodapé do post */
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(88, 86, 85, 0.2); /* linha divisória sutil */
+    padding-top: 1rem;
+}
+
+.post-meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post-categories {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.category-tag {
+    background-color: #ffffff57;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-weight: 400;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.post-actions button {
+    font-size: 1.2rem;
+    color: var(--texto-escuro);
+}
+
+.post-actions button:hover {
+    font-size: 1.2rem;
+    color: black;
+}
+
+.post-views {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--cinza-escuro);
+}
+
+.post-save-button {
+    font-size: 1.5rem;
+    color: var(--texto-escuro);
+}
+
+.post-save-button :hover{
+    font-size: 1.5rem;
+    color: black;
+}
+
+/* --- NOVO POST --- */
+
+.post-creator-card {
+    background-color: #d9d9d95d;
+    border-radius: 30px;
+    margin-bottom: 2rem;
+    overflow: hidden; /* garante que os cantos arredondados sejam respeitados */
+    display: flex;
+    flex-direction: column;
+}
+
+.post-creator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid rgba(172, 171, 171, 0.5);
+    background-color: rgba(217, 217, 217, 0.365);
+}
+
+.header-tabs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tab-button, .option-button {
+    background: none;
+    border: none;
+    padding: 0.30rem 0.5rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-escuro);
+    cursor: pointer;
+    border-bottom: 3px solid transparent; /* borda invisível para manter o alinhamento */
+}
+
+.tab-button.active {
+    color: black;
+    border-bottom: 3px solid #554b8552;
+}
+
+.tab-button:not(.active):hover {
+    color: black; /* Deixa o texto mais escuro ao passar o mouse */
+    border-bottom: 3px solid #554b852a; /* Mostra uma barrinha mais sutil no hover */
+}
+
+.option-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.option-button i {
+    font-size: 0.7rem;
+}
+
+/* --- Estilos do Corpo (Textarea) --- */
+.post-creator-body {
+    padding: 0.5rem;
+}
+
+.post-textarea {
+    width: 100%;
+    min-height: 120px;
+    border: none;
+    outline: none; /* Remove a borda azul ao focar */
+    resize: vertical; /* Permite que o usuário redimensione a altura */
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--texto-escuro);
+    background-color: transparent; /* Usa a cor do .post-creator-card */
+}
+
+/* --- Estilos do Rodapé --- */
+.post-creator-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.footer-icons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--cinza-escuro);
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.icon-button :hover{
+    color: black
+}
+
+.footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.action-button-secondary {
+    background: none;
+    border: none;
+    font-weight: 600;
+    color: var(--cinza-escuro);
+    cursor: pointer;
+}
+
+.action-button-primary {
+    background-color:#d9d9d9;
+    color: var(--texto-escuro);
+    font-weight: 600;
+    border: none;
+    border-radius: 45px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.action-button-primary:hover {
+    background-color: #554b8552;
+}
+
+@media (max-width:970px){
+    .barra-naveg{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    #logo{
+        font-size: 25px;
+    }
+    .barra-pesquisa{
+        transform: translateX(-100%);
+        top: 0;
+        left: 0;
+    }
+}
