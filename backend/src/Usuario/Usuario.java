@@ -8,16 +8,10 @@ public class Usuario {
     private String senha_hash;
     private boolean admin;
 
-    private int numero;
-    private String personalText;
-
-    public Usuario(String login, String senha_hash, boolean admin, int numero, String personalText) {
+    public Usuario(String login, String senha_hash, boolean admin) {
         this.login = login;
         this.senha_hash = senha_hash;
         this.admin = admin;
-
-        this.numero = numero;
-        this.personalText = personalText;
     }
 
     // getters
@@ -36,14 +30,6 @@ public class Usuario {
     public boolean isAdmin() {
         return admin;
     }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public String getPersonalText() {
-        return personalText;
-    }
     
     // setters
     public void setSenha_hash(String senha) {
@@ -52,13 +38,5 @@ public class Usuario {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public void setPersonalText(String personalText) {
-        this.personalText = personalText;
     }
 }

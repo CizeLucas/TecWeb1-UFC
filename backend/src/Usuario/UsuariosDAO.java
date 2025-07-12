@@ -44,10 +44,8 @@ public class UsuariosDAO {
                 String login = resultSet.getString("login");
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
-                int numero = resultSet.getInt("numero");
-                String personalText = resultSet.getString("personal_text");
 
-                Usuario usuario = new Usuario(login, senha_hash, admin, numero, personalText);
+                Usuario usuario = new Usuario(login, senha_hash, admin);
                 usuarios.add(usuario);
             }
         } catch (SQLException exception) {
@@ -69,10 +67,8 @@ public class UsuariosDAO {
             if (resultSet.next()) {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
-                int numero = resultSet.getInt("numero");
-                String personalText = resultSet.getString("personal_text");
 
-                usuario = new Usuario(login, senha_hash, admin, numero, personalText);
+                usuario = new Usuario(login, senha_hash, admin);
                 System.out.println("Sucesso ao buscar usuário: " + login);
             }
         } catch (SQLException exception) {
@@ -132,34 +128,6 @@ public class UsuariosDAO {
             System.out.println("Sucesso ao adicionar novo usuario com login: " + login);
         } catch (SQLException exception) {
             System.err.println("Erro ao adicionar usuário: " + exception.getMessage());
-        }
-    }
-
-    public void setNumero(String login, int numero) {
-        String sql = "UPDATE usuarios SET numero = ? WHERE login = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, numero);
-            preparedStatement.setString(2, login);
-
-            preparedStatement.executeUpdate();
-            System.out.println("Sucesso ao editar o numero do login: " + login + ", para: " + numero);
-        } catch (SQLException exception) {
-            System.err.println("Erro ao atualizar número: " + exception.getMessage());
-        }
-    }
-
-    public void setPersonalText(String login, String personalText) {
-        String sql = "UPDATE usuarios SET personal_text = ? WHERE login = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, personalText);
-            preparedStatement.setString(2, login);
-
-            preparedStatement.executeUpdate();
-            System.out.println("Sucesso ao editar o texto do login: " + login + ", para: " + personalText);
-        } catch (SQLException exception) {
-            System.err.println("Erro ao atualizar texto pessoal: " + exception.getMessage());
         }
     }
 
