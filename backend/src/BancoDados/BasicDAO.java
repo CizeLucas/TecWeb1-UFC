@@ -11,7 +11,7 @@ public abstract class BasicDAO {
 
     public static Connection connection;
 
-    public void connect() {
+    public static void connect() {
         try {
             Properties databaseConfig = new Properties();
             FileInputStream fis = new FileInputStream("backend/config/dbconfig.properties");
@@ -33,7 +33,7 @@ public abstract class BasicDAO {
         } 
     }
 
-    public void close() {
+    public static void close() {
         try {
             connection.close();
             System.out.println("Encerrando a conexão com a base de dados...");
