@@ -32,15 +32,10 @@ public class RetornaDadosUsuario implements HttpHandler {
                 statusCode = 401; // não autorizado
                 respostaDadosUsuario.authentication = false;
             } else {
-                UsuariosDAO usuariosDAO = new UsuariosDAO();
-                usuariosDAO.connect();
-
-                Usuario usuario = usuariosDAO.getUsuario(login);
+                Usuario usuario = Usuario.getUsuarioLogin(login);
 
                 respostaDadosUsuario.login = usuario.getLogin();
                 respostaDadosUsuario.admin = usuario.isAdmin();
-
-                usuariosDAO.close();
             }
 
             String respostaJson = gson.toJson(respostaDadosUsuario, UserDataResponse.class);

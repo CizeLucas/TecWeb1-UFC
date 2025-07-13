@@ -20,27 +20,15 @@ public class VerificaRegistro implements HttpHandler {
             Gson gson = new Gson();
             RegistroRequest pedidoRegistro = gson.fromJson(inputString, RegistroRequest.class);
 
-            UsuariosDAO usuariosDAO = new UsuariosDAO();
-            usuariosDAO.connect();
-
             RegistroResponse respostaRegistro = new RegistroResponse();
             int statusCode = 200;
 
-            if (usuariosDAO.verificaLogin(pedidoRegistro.login)) {
+            if (UsuariosDAO.verificaLogin(pedidoRegistro.login)) {
                 respostaRegistro.login_existe = true;
-                respostaRegistro.senhas_iguais = false; // não importa
             } else {
                 respostaRegistro.login_existe = false;
-                if (pedidoRegistro.senha1.equals(pedidoRegistro.senha2)) {
-                    respostaRegistro.senhas_iguais = true;
-
-                    usuariosDAO.addUsuario(pedidoRegistro.login, pedidoRegistro.senha1);
-                } else {
-                    respostaRegistro.senhas_iguais = false;
-                }
+                UsuariosDAO.addUsuario(pedidoRegistro.login, pedidoRegistro.senha);
             }
-
-            usuariosDAO.close();
 
             String respostaJson = gson.toJson(respostaRegistro, RegistroResponse.class);
 
@@ -55,13 +43,11 @@ public class VerificaRegistro implements HttpHandler {
 
     private static class RegistroRequest {
         String login;
-        String senha1;
-        String senha2;
+        String senha;
     }
 
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
     private static class RegistroResponse {
         boolean login_existe;
-        boolean senhas_iguais;
     }
 }

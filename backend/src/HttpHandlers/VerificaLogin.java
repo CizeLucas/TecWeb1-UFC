@@ -22,15 +22,12 @@ public class VerificaLogin implements HttpHandler {
             Gson gson = new Gson();
             LoginRequest pedidoLogin = gson.fromJson(inputString, LoginRequest.class);
 
-            UsuariosDAO usuariosDAO = new UsuariosDAO();
-            usuariosDAO.connect();
-
             LoginResponse respostaRegistro = new LoginResponse();
             int statusCode = 200;
 
-            if(usuariosDAO.verificaLogin(pedidoLogin.login)) {
+            if(UsuariosDAO.verificaLogin(pedidoLogin.login)) {
                 respostaRegistro.login_existe = true;
-                if (usuariosDAO.verificaSenha(pedidoLogin.login, pedidoLogin.senha)) {
+                if (UsuariosDAO.verificaSenha(pedidoLogin.login, pedidoLogin.senha)) {
                     System.out.println("senha correta para login: " + pedidoLogin.login);
 
                     Sessao novaSessao = new Sessao(pedidoLogin.login);
@@ -48,8 +45,6 @@ public class VerificaLogin implements HttpHandler {
                 respostaRegistro.login_existe = false;
                 respostaRegistro.senha_correta = false; // não importa
             }
-
-            usuariosDAO.close();
 
             String respostaJson = gson.toJson(respostaRegistro, LoginResponse.class);
 

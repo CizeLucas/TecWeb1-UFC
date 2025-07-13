@@ -8,11 +8,15 @@ import SHA1.SHA1;
 
 public class UsuariosDAO extends BasicDAO {
 
-    public ArrayList<Usuario> getAllUsuarios() {
+    public static ArrayList<Usuario> getAllUsuarios() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
-        try (Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM usuarios")) {
+        connect();
+
+        String sqlQuery = "SELECT * FROM usuarios";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 String login = resultSet.getString("login");
@@ -22,19 +26,25 @@ public class UsuariosDAO extends BasicDAO {
                 Usuario usuario = new Usuario(login, senha_hash, admin);
                 usuarios.add(usuario);
             }
+
         } catch (SQLException exception) {
             System.err.println("Erro ao buscar usuários: " + exception.getMessage());
         }
+
+        close();
 
         System.out.println("Sucesso ao retornar todos os usuários");
         return usuarios;
     }
 
-    public Usuario getUsuario(String login) {
-        String sql = "SELECT * FROM usuarios WHERE login = ?";
+    public static Usuario getUsuario(String login) {
         Usuario usuario = null;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        connect();
+
+        String sqlQuery = "SELECT * FROM usuarios WHERE login = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -43,39 +53,55 @@ public class UsuariosDAO extends BasicDAO {
                 boolean admin = resultSet.getBoolean("admin");
 
                 usuario = new Usuario(login, senha_hash, admin);
-                System.out.println("Sucesso ao buscar usuário: " + login);
             }
+
         } catch (SQLException exception) {
             System.err.println("Erro ao buscar usuário: " + exception.getMessage());
         }
 
+        close();
+
+        if (usuario != null)
+            System.out.println("Sucesso ao buscar usuário: " + login);
+        else
+            System.out.println("Nenhum usuário com login: " + login + " encontrado");
+
         return usuario;
     }
 
-    public boolean verificaLogin(String login) {
-        String sql = "SELECT * FROM usuarios WHERE login = ?";
+    public static boolean verificaLogin(String login) {
         boolean existe = false;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        connect();
+
+        String sqlQuery = "SELECT * FROM usuarios WHERE login = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 existe = true;
             }
+
         } catch (SQLException exception) {
             System.err.println("Erro ao verificar login: " + exception.getMessage());
         }
+
+        close();
 
         System.out.println("Sucesso ao verificar existencia do login: " + login);
         return existe;
     }
 
-    public boolean verificaSenha(String login, String senha) {
-        String sql = "SELECT * FROM usuarios WHERE login = ? AND senha_hash = ?";
+    public static boolean verificaSenha(String login, String senha) {
         boolean senha_correta = false;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        connect();
+
+        String sqlQuery = "SELECT * FROM usuarios WHERE login = ? AND senha_hash = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, SHA1.toHash(senha));
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -83,18 +109,23 @@ public class UsuariosDAO extends BasicDAO {
             if (resultSet.next()) {
                 senha_correta = true;
             }
+
         } catch (SQLException exception) {
             System.err.println("Erro ao verificar senha: " + exception.getMessage());
         }
+
+        close();
 
         System.out.println("Sucesso ao verificar senha para login: " + login);
         return senha_correta;
     }
 
-    public void addUsuario(String login, String senha) {
-        String sql = "INSERT INTO usuarios (login, senha_hash) VALUES (?, ?)";
+    public static void addUsuario(String login, String senha) {
+        connect();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        String sqlQuery = "INSERT INTO usuarios (login, senha_hash) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, SHA1.toHash(senha));
 
@@ -103,12 +134,16 @@ public class UsuariosDAO extends BasicDAO {
         } catch (SQLException exception) {
             System.err.println("Erro ao adicionar usuário: " + exception.getMessage());
         }
+
+        close();
     }
 
-    public void setAdmin(String login, boolean admin) {
-        String sql = "UPDATE usuarios SET admin = ? WHERE login = ?";
+    public static void setAdmin(String login, boolean admin) {
+        connect();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        String sqlQuery = "UPDATE usuarios SET admin = ? WHERE login = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setBoolean(1, admin);
             preparedStatement.setString(2, login);
 
@@ -117,12 +152,16 @@ public class UsuariosDAO extends BasicDAO {
         } catch (SQLException exception) {
             System.err.println("Erro ao atualizar admin: " + exception.getMessage());
         }
+
+        close();
     }
 
-    public void ChangeSenha(String login, String senha) {
-        String sql = "UPDATE usuarios SET senha_hash = ? WHERE login = ?";
+    public static void ChangeSenha(String login, String senha) {
+        connect();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        String sqlQuery = "UPDATE usuarios SET senha_hash = ? WHERE login = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, SHA1.toHash(senha));
             preparedStatement.setString(2, login);
 
@@ -131,12 +170,16 @@ public class UsuariosDAO extends BasicDAO {
         } catch (SQLException exception) {
             System.err.println("Erro ao atualizar senha: " + exception.getMessage());
         }
+
+        close();
     }
 
-    public void deleteUsuario(String login) {
-        String sql = "DELETE FROM usuarios WHERE login = ?";
+    public static void deleteUsuario(String login) {
+        connect();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        String sqlQuery = "DELETE FROM usuarios WHERE login = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, login);
             preparedStatement.executeUpdate();
 
@@ -144,6 +187,8 @@ public class UsuariosDAO extends BasicDAO {
         } catch (SQLException exception) {
             System.err.println("Erro ao deletar usuário: " + exception.getMessage());
         }
+
+        close();
     }
 
 }

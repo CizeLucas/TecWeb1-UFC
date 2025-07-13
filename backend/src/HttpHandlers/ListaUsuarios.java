@@ -33,16 +33,13 @@ public class ListaUsuarios implements HttpHandler {
                 statusCode = 401; // não autorizado
                 respostaDados.authentication = false;
             } else {
-                UsuariosDAO usuariosDAO = new UsuariosDAO();
-                usuariosDAO.connect();
-
-                if (!usuariosDAO.getUsuario(login_admin).isAdmin()) {
+                if (!Usuario.getUsuarioLogin(login_admin).isAdmin()) {
                     // token pertence a uma sessão ativa, mas o usuário não é um admin
                     statusCode = 401; // não autorizado
                     respostaDados.authentication = false;
                 } else {
                     // pedido é valido e lista de usuários é obtida
-                    ArrayList<Usuario> listaUsuarios = usuariosDAO.getAllUsuarios();
+                    ArrayList<Usuario> listaUsuarios = UsuariosDAO.getAllUsuarios();
 
                     respostaDados.array = new ArrayList<UserDataComplete>();
 
@@ -56,8 +53,6 @@ public class ListaUsuarios implements HttpHandler {
                         respostaDados.array.add(usuarioData);
                     }
                 }
-
-                usuariosDAO.close();
             }
 
             String respostaJson = gson.toJson(respostaDados, AllUserDAtaResponse.class);
