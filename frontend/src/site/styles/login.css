@@ -82,7 +82,7 @@ input {
 
 .entrar{
     height: 36px;
-    width: 70%;
+    width: 60%;
     border-radius: 10px;
     background-color: var(--color-blue);
     font-weight: bold;
@@ -93,7 +93,7 @@ input {
 
 .criar-conta{
     height: 36px;
-    width: 45%;
+    width: 60%;
     border-radius: 10px;
     background-color: var(--color-white);
     font-weight: bold;
