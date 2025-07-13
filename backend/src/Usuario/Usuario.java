@@ -14,8 +14,11 @@ public class Usuario {
 
     public Usuario(String login, String senha_hash, boolean admin) {
         for (Usuario usuario : usuarios) {
-            if (usuario.login.equals(login))
+            if (usuario.login.equals(login)) {
+                usuario.senha_hash = senha_hash;
+                usuario.admin = admin;
                 return;
+            }
         }
 
         this.login = login;
