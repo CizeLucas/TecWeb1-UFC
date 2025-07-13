@@ -21,8 +21,6 @@ public class Server {
 
             server.createContext("/RetornaDadosUsuario", new RetornaDadosUsuario());
 
-            server.createContext("/SalvaDadosUsuario", new SalvaDadosUsuario());
-
             server.createContext("/ListaUsuarios", new ListaUsuarios());
 
             server.setExecutor(null); // creates a default executor
