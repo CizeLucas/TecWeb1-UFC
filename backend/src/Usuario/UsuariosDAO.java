@@ -1,16 +1,13 @@
 package Usuario;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 import BancoDados.BasicDAO;
 import SHA1.SHA1;
 
 public class UsuariosDAO extends BasicDAO {
 
-    public static ArrayList<Usuario> getAllUsuarios() {
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-
+    public static void loadAllUsuarios() {
         connect();
 
         String sqlQuery = "SELECT * FROM usuarios";
@@ -23,18 +20,16 @@ public class UsuariosDAO extends BasicDAO {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
 
-                Usuario usuario = new Usuario(login, senha_hash, admin);
-                usuarios.add(usuario);
+                new Usuario(login, senha_hash, admin);
             }
 
         } catch (SQLException exception) {
-            System.err.println("Erro ao buscar usuários: " + exception.getMessage());
+            System.err.println("Erro ao carregar todos os usuários: " + exception.getMessage());
         }
 
         close();
 
-        System.out.println("Sucesso ao retornar todos os usuários");
-        return usuarios;
+        System.out.println("Sucesso ao carregar todos os usuários");
     }
 
     public static Usuario getUsuario(String login) {

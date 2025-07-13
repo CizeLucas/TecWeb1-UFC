@@ -39,7 +39,7 @@ public class ListaUsuarios implements HttpHandler {
                     respostaDados.authentication = false;
                 } else {
                     // pedido é valido e lista de usuários é obtida
-                    ArrayList<Usuario> listaUsuarios = UsuariosDAO.getAllUsuarios();
+                    ArrayList<Usuario> listaUsuarios = Usuario.getAllUsuarios();
 
                     respostaDados.array = new ArrayList<UserDataComplete>();
 

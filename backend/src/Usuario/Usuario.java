@@ -13,6 +13,11 @@ public class Usuario {
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public Usuario(String login, String senha_hash, boolean admin) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.login.equals(login))
+                return;
+        }
+
         this.login = login;
         this.senha_hash = senha_hash;
         this.admin = admin;
@@ -27,6 +32,12 @@ public class Usuario {
         }
 
         return UsuariosDAO.getUsuario(login);
+    }
+
+    public static ArrayList<Usuario> getAllUsuarios() {
+        UsuariosDAO.loadAllUsuarios();
+
+        return usuarios;
     }
 
     // getters
@@ -49,9 +60,13 @@ public class Usuario {
     // setters
     public void setSenha_hash(String senha) {
         this.senha_hash = SHA1.toHash(senha);
+
+        UsuariosDAO.ChangeSenha(this.login, senha);
     }
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+
+        UsuariosDAO.setAdmin(this.login, admin);
     }
 }
