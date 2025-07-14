@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+import Usuario.Usuario;
 import Usuario.UsuariosDAO;
 
 public class VerificaRegistro implements HttpHandler {
@@ -31,7 +32,7 @@ public class VerificaRegistro implements HttpHandler {
             respostaRegistro.login_existe = true;
         } else {
             respostaRegistro.login_existe = false;
-            UsuariosDAO.addUsuario(pedidoRegistro.login, pedidoRegistro.senha);
+            Usuario.SalvarNovoUsuario(pedidoRegistro.login, pedidoRegistro.senha);
         }
 
         String respostaJson = gson.toJson(respostaRegistro, RegistroResponse.class);

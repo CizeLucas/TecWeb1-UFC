@@ -32,6 +32,12 @@ public class Usuario {
         return new Usuario(login, senha_hash, admin);
     }
 
+    public static void SalvarNovoUsuario(String login, String senha_hash) {
+        new Usuario(login, senha_hash, false);
+
+        UsuariosDAO.addUsuario(login, senha_hash);
+    }
+
     public static Usuario getUsuarioLogin(String login) {
         for (Usuario usuario : usuarios) {
             if (usuario.login.equals(login))
