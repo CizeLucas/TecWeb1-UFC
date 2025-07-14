@@ -16,54 +16,57 @@ import Sessao.Sessoes;
 public class ListaUsuarios implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if(exchange.getRequestMethod().equals("POST")) {
-            InputStream input = exchange.getRequestBody();
-            String inputString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
+        if (!exchange.getRequestMethod().equals("POST")) {
+            exchange.sendResponseHeaders(405, 1);
+            return;
+        }
 
-            Gson gson = new Gson();
-            AllUserDataRequest pedidoDados = gson.fromJson(inputString, AllUserDataRequest.class);
-            AllUserDAtaResponse respostaDados = new AllUserDAtaResponse();
+        InputStream input = exchange.getRequestBody();
+        String inputString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
 
-            String login_admin = Sessoes.getLogin(pedidoDados.token);
+        Gson gson = new Gson();
+        AllUserDataRequest pedidoDados = gson.fromJson(inputString, AllUserDataRequest.class);
+        AllUserDAtaResponse respostaDados = new AllUserDAtaResponse();
 
-            int statusCode = 200;
+        String login_admin = Sessoes.getLogin(pedidoDados.token);
 
-            if (login_admin == null) {
-                // token não pertence a nenhuma sessão ativa
+        int statusCode = 200;
+
+        if (login_admin == null) {
+            // token não pertence a nenhuma sessão ativa
+            statusCode = 401; // não autorizado
+            respostaDados.authentication = false;
+        } else {
+            if (!Usuario.getUsuarioLogin(login_admin).isAdmin()) {
+                // token pertence a uma sessão ativa, mas o usuário não é um admin
                 statusCode = 401; // não autorizado
                 respostaDados.authentication = false;
             } else {
-                if (!Usuario.getUsuarioLogin(login_admin).isAdmin()) {
-                    // token pertence a uma sessão ativa, mas o usuário não é um admin
-                    statusCode = 401; // não autorizado
-                    respostaDados.authentication = false;
-                } else {
-                    // pedido é valido e lista de usuários é obtida
-                    ArrayList<Usuario> listaUsuarios = Usuario.getAllUsuarios();
+                // pedido é valido e lista de usuários é obtida
+                ArrayList<Usuario> listaUsuarios = Usuario.getAllUsuarios();
 
-                    respostaDados.array = new ArrayList<UserDataComplete>();
+                respostaDados.array = new ArrayList<UserDataComplete>();
 
-                    for (Usuario usuario : listaUsuarios) {
-                        UserDataComplete usuarioData = new UserDataComplete();
-                        
-                        usuarioData.login = usuario.getLogin();
-                        usuarioData.senha_hash = usuario.getSenha_hash();
-                        usuarioData.admin = usuario.isAdmin();
+                for (Usuario usuario : listaUsuarios) {
+                    UserDataComplete usuarioData = new UserDataComplete();
+                    
+                    usuarioData.login = usuario.getLogin();
+                    usuarioData.senha_hash = usuario.getSenha_hash();
+                    usuarioData.admin = usuario.isAdmin();
 
-                        respostaDados.array.add(usuarioData);
-                    }
+                    respostaDados.array.add(usuarioData);
                 }
             }
+        }
 
-            String respostaJson = gson.toJson(respostaDados, AllUserDAtaResponse.class);
+        String respostaJson = gson.toJson(respostaDados, AllUserDAtaResponse.class);
 
-            exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-            exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
 
-            OutputStream respostaHttp = exchange.getResponseBody();
-            respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
-            respostaHttp.close();
-        }  
+        OutputStream respostaHttp = exchange.getResponseBody();
+        respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
+        respostaHttp.close(); 
     }
 
     private static class AllUserDataRequest {

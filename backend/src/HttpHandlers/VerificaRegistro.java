@@ -13,32 +13,35 @@ import Usuario.UsuariosDAO;
 public class VerificaRegistro implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if (exchange.getRequestMethod().equals("POST")) {
-            InputStream input = exchange.getRequestBody();
-            String inputString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
+        if (!exchange.getRequestMethod().equals("POST")) {
+            exchange.sendResponseHeaders(405, 1);
+            return;
+        }
 
-            Gson gson = new Gson();
-            RegistroRequest pedidoRegistro = gson.fromJson(inputString, RegistroRequest.class);
+        InputStream input = exchange.getRequestBody();
+        String inputString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
 
-            RegistroResponse respostaRegistro = new RegistroResponse();
-            int statusCode = 200;
+        Gson gson = new Gson();
+        RegistroRequest pedidoRegistro = gson.fromJson(inputString, RegistroRequest.class);
 
-            if (UsuariosDAO.verificaLogin(pedidoRegistro.login)) {
-                respostaRegistro.login_existe = true;
-            } else {
-                respostaRegistro.login_existe = false;
-                UsuariosDAO.addUsuario(pedidoRegistro.login, pedidoRegistro.senha);
-            }
+        RegistroResponse respostaRegistro = new RegistroResponse();
+        int statusCode = 200;
 
-            String respostaJson = gson.toJson(respostaRegistro, RegistroResponse.class);
+        if (UsuariosDAO.verificaLogin(pedidoRegistro.login)) {
+            respostaRegistro.login_existe = true;
+        } else {
+            respostaRegistro.login_existe = false;
+            UsuariosDAO.addUsuario(pedidoRegistro.login, pedidoRegistro.senha);
+        }
 
-            exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-            exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+        String respostaJson = gson.toJson(respostaRegistro, RegistroResponse.class);
 
-            OutputStream respostaHttp = exchange.getResponseBody();
-            respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
-            respostaHttp.close();
-        }   
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
+
+        OutputStream respostaHttp = exchange.getResponseBody();
+        respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
+        respostaHttp.close();
     }
 
     private static class RegistroRequest {
