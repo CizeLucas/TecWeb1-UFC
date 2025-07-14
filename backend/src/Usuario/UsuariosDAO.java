@@ -20,7 +20,7 @@ public class UsuariosDAO extends BasicDAO {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
 
-                new Usuario(login, senha_hash, admin);
+                Usuario.loadUsuario(login, senha_hash, admin);
             }
 
         } catch (SQLException exception) {
@@ -47,7 +47,7 @@ public class UsuariosDAO extends BasicDAO {
                 String senha_hash = resultSet.getString("senha_hash");
                 boolean admin = resultSet.getBoolean("admin");
 
-                usuario = new Usuario(login, senha_hash, admin);
+                usuario = Usuario.loadUsuario(login, senha_hash, admin);
             }
 
         } catch (SQLException exception) {

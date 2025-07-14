@@ -12,15 +12,7 @@ public class Arquivo {
 
     private static ArrayList<Arquivo> arquivos = new ArrayList<>();
 
-    public Arquivo(String nomeArquivo, byte[] dados, int publicacao_id) {
-        for (Arquivo arquivo : arquivos) {
-            if (arquivo.nomeArquivo.equals(nomeArquivo)) {
-                arquivo.dados = dados;
-                arquivo.publicacao = Publicacao.getPublicacaoId(publicacao_id);
-                return;
-            }
-        }
-
+    private Arquivo(String nomeArquivo, byte[] dados, int publicacao_id) {
         this.nomeArquivo = nomeArquivo;
         this.dados = dados;
         this.publicacao = Publicacao.getPublicacaoId(publicacao_id);
@@ -29,6 +21,19 @@ public class Arquivo {
 
         if (!this.publicacao.getArquivos().contains(this))
             this.publicacao.addArquivo(this);
+    }
+
+    public static Arquivo loadArquivo(String nomeArquivo, byte[] dados, int publicacao_id) {
+        for (Arquivo arquivo : arquivos) {
+            if (arquivo.nomeArquivo.equals(nomeArquivo)) {
+                arquivo.dados = dados;
+                arquivo.publicacao = Publicacao.getPublicacaoId(publicacao_id);
+
+                return arquivo;
+            }
+        }
+
+        return new Arquivo(nomeArquivo, dados, publicacao_id);
     }
 
     public static Arquivo getArquivo(String nomeArquivo) {

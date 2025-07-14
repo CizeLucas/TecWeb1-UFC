@@ -16,17 +16,7 @@ public class Publicacao {
 
     private static ArrayList<Publicacao> publicacoes = new ArrayList<>();
 
-    public Publicacao(int id, String titulo, String conteudo, String usuarioLogin) {
-        for (Publicacao publicacao : publicacoes) {
-            if (publicacao.id == id) {
-                publicacao.titulo = titulo;
-                publicacao.conteudo = conteudo;
-                publicacao.usuario = Usuario.getUsuarioLogin(usuarioLogin);
-                publicacao.arquivos = Arquivo.getAllArquivosWithPublicacaoId(id);
-                return;
-            }
-        }
-
+    private Publicacao(int id, String titulo, String conteudo, String usuarioLogin) {
         this.id = id;
         this.titulo = titulo;
         this.conteudo = conteudo;
@@ -34,6 +24,20 @@ public class Publicacao {
         this.arquivos = Arquivo.getAllArquivosWithPublicacaoId(id);
 
         publicacoes.add(this);
+    }
+
+    public static Publicacao loadPublicacao(int id, String titulo, String conteudo, String usuarioLogin) {
+        for (Publicacao publicacao : publicacoes) {
+            if (publicacao.id == id) {
+                publicacao.titulo = titulo;
+                publicacao.conteudo = conteudo;
+                publicacao.usuario = Usuario.getUsuarioLogin(usuarioLogin);
+                publicacao.arquivos = Arquivo.getAllArquivosWithPublicacaoId(id);
+                return publicacao;
+            }
+        }
+
+        return new Publicacao(id, titulo, conteudo, usuarioLogin);
     }
 
     public static Publicacao getPublicacaoId(int id) {

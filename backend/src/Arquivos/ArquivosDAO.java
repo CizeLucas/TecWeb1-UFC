@@ -24,7 +24,7 @@ public class ArquivosDAO extends BasicDAO {
                 byte[] dados = resultSet.getBytes("conteudo");
                 int publicacaoId = resultSet.getInt("publicacao_id");
 
-                new Arquivo(nomeArquivo, dados, publicacaoId);
+                Arquivo.loadArquivo(nomeArquivo, dados, publicacaoId);
                 System.out.println("Sucesso ao carregar todos os arquivo: " + nomeArquivo);
             }
 
@@ -50,9 +50,9 @@ public class ArquivosDAO extends BasicDAO {
 
             if (resultSet.next()) {
                 byte[] dados = resultSet.getBytes("dados");
-                int publicacao_id = resultSet.getInt("publicacao_id");
+                int publicacaoId = resultSet.getInt("publicacao_id");
 
-                arquivo = new Arquivo(nomeArquivo, dados, publicacao_id);
+                arquivo = Arquivo.loadArquivo(nomeArquivo, dados, publicacaoId);
             }
 
         } catch (SQLException exception) {

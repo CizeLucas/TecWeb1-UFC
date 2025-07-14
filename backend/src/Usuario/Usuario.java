@@ -12,20 +12,24 @@ public class Usuario {
 
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
 
-    public Usuario(String login, String senha_hash, boolean admin) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.login.equals(login)) {
-                usuario.senha_hash = senha_hash;
-                usuario.admin = admin;
-                return;
-            }
-        }
-
+    private Usuario(String login, String senha_hash, boolean admin) {
         this.login = login;
         this.senha_hash = senha_hash;
         this.admin = admin;
 
         usuarios.add(this);
+    }
+
+    public static Usuario loadUsuario(String login, String senha_hash, boolean admin) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.login.equals(login)) {
+                usuario.senha_hash = senha_hash;
+                usuario.admin = admin;
+                return usuario;
+            }
+        }
+
+        return new Usuario(login, senha_hash, admin);
     }
 
     public static Usuario getUsuarioLogin(String login) {

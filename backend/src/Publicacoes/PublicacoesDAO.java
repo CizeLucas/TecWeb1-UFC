@@ -22,7 +22,7 @@ public class PublicacoesDAO extends BasicDAO {
                 String conteudo = resultSet.getString("conteudo");
                 String usuarioLogin = resultSet.getString("usuario_login");
 
-                new Publicacao(id, titulo, conteudo, usuarioLogin);
+                Publicacao.loadPublicacao(id, titulo, conteudo, usuarioLogin);
                 System.out.println("Sucesso ao carregar publicação de id: " + Integer.toString(id));
             }
 
@@ -50,7 +50,7 @@ public class PublicacoesDAO extends BasicDAO {
                 String conteudo = resultSet.getString("conteudo");
                 String usuarioLogin = resultSet.getString("usuario_login");
 
-                publicacao = new Publicacao(id, titulo, conteudo, usuarioLogin);
+                publicacao = Publicacao.loadPublicacao(id, titulo, conteudo, usuarioLogin);
             }
 
         } catch (SQLException exception) {
