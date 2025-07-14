@@ -1,3 +1,16 @@
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.querySelector(".barra-naveg-esquerda");
+
+    menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+    });
+
+    // vai fechar o menu se clicar em algum link dentro dele
+    sidebar.addEventListener("click", e => {
+        if (e.target.classList.contains("barra-naveg-item")) {
+            sidebar.classList.remove("open");
+        }
+    });
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("ConectaUFC carregado!");
@@ -57,3 +70,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
