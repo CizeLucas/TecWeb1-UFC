@@ -40,6 +40,12 @@ public class Publicacao {
         return new Publicacao(id, titulo, conteudo, usuarioLogin);
     }
 
+    public static void SalvarNovaPublicacao(String titulo, String conteudo, String usuarioLogin) {
+        int id = PublicacoesDAO.SalvarPublicacao(titulo, conteudo, usuarioLogin);
+
+        new Publicacao(id, titulo, conteudo, usuarioLogin);
+    }
+
     public static Publicacao getPublicacaoId(int id) {
         for (Publicacao publicacao : publicacoes) {
             if (publicacao.id == id)

@@ -67,4 +67,37 @@ public class PublicacoesDAO extends BasicDAO {
         return publicacao;
     }
 
+    public static int SalvarPublicacao(String titulo, String conteudo, String usuarioLogin) {
+        int id = -1;
+        
+        connect();
+
+        String sqlQuery = "INSERT INTO publicacoes (titulo, conteudo, usuario_login) VALUES (?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, conteudo);
+            preparedStatement.setString(3, usuarioLogin);
+
+            preparedStatement.executeUpdate();
+            
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("Erro ao adicionar publicacao: " + exception.getMessage());
+        }
+
+        close();
+
+        if (id != -1)
+            System.out.println("Sucesso ao adicionar nova publicacao com id: " + id);
+        else
+            System.out.println("Erro estranho ao adicionar nova publicacao. nenhum id retornado");
+
+        return id;
+    }
+
 }
