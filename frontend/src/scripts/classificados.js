@@ -14,7 +14,7 @@ toggleBtn.addEventListener("click", () => {
 if (isSidebarOpen) {
     sidebar.style.display = "none";
 } else {
-    sidebar.style.display = "block";
+    sidebar.style.display = "flex";
 }
       isSidebarOpen = !isSidebarOpen;
 });
