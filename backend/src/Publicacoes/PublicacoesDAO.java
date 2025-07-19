@@ -22,7 +22,7 @@ public class PublicacoesDAO extends BasicDAO {
                 String conteudo = resultSet.getString("conteudo");
                 String usuarioLogin = resultSet.getString("usuario_login");
 
-                new Publicacao(id, titulo, conteudo, usuarioLogin);
+                Publicacao.loadPublicacao(id, titulo, conteudo, usuarioLogin);
                 System.out.println("Sucesso ao carregar publicação de id: " + Integer.toString(id));
             }
 
@@ -50,7 +50,7 @@ public class PublicacoesDAO extends BasicDAO {
                 String conteudo = resultSet.getString("conteudo");
                 String usuarioLogin = resultSet.getString("usuario_login");
 
-                publicacao = new Publicacao(id, titulo, conteudo, usuarioLogin);
+                publicacao = Publicacao.loadPublicacao(id, titulo, conteudo, usuarioLogin);
             }
 
         } catch (SQLException exception) {
@@ -65,6 +65,39 @@ public class PublicacoesDAO extends BasicDAO {
             System.out.println("Nenhuma publicação de id: " + idStr);
 
         return publicacao;
+    }
+
+    public static int SalvarPublicacao(String titulo, String conteudo, String usuarioLogin) {
+        int id = -1;
+        
+        connect();
+
+        String sqlQuery = "INSERT INTO publicacoes (titulo, conteudo, usuario_login) VALUES (?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, conteudo);
+            preparedStatement.setString(3, usuarioLogin);
+
+            preparedStatement.executeUpdate();
+            
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("Erro ao adicionar publicacao: " + exception.getMessage());
+        }
+
+        close();
+
+        if (id != -1)
+            System.out.println("Sucesso ao adicionar nova publicacao com id: " + id);
+        else
+            System.out.println("Erro estranho ao adicionar nova publicacao. nenhum id retornado");
+
+        return id;
     }
 
 }

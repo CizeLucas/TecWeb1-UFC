@@ -8,16 +8,18 @@ Se trata de um site que centralize interações sociais, acadêmicas e interdisc
 - [ ] Site no ar
 - [x] Login
 - [x] Registro
-- [x] Atualizar dados de usuario
-- [x] Visualização de tabela de usuarios por admins
 - [ ] Deletar a propria conta
-- [ ] Admin poder deletar qualquer conta
 - [ ] Poder sair da sua conta
 - [ ] Poder mudar senha da sua conta
-- [ ] Alterar o framework
-- [ ] Chats?
 - [x] Banco de dados
-- [ ] Banco de dados unico 
+- [x] Banco de dados unico 
+- [ ] Enivar publicação
+- [ ] Receber todas as publicações
+- [ ] Enviar arquivos nas publicações
+- [ ] Tags nas publicações
+- [ ] Separar pagina de publicações em varias paginas separadas
+- [ ] Editar publicação
+- [ ] Deletar publicação
 
 ### Artefatos
 - [x] Proposta Inicial

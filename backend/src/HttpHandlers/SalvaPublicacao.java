@@ -1,18 +1,20 @@
 package HttpHandlers;
 
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpExchange;
 
-import com.google.gson.Gson;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-
-import Usuario.*;
-
+import Publicacoes.Publicacao;
 import Sessao.Sessoes;
 
-public class RetornaDadosUsuario implements HttpHandler {
+import com.google.gson.Gson;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+
+public class SalvaPublicacao implements HttpHandler {
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if (!exchange.getRequestMethod().equals("POST")) {
@@ -24,43 +26,42 @@ public class RetornaDadosUsuario implements HttpHandler {
         String inputString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
 
         Gson gson = new Gson();
-        UserDataRequest pedidoDados = gson.fromJson(inputString, UserDataRequest.class);
-        UserDataResponse respostaDadosUsuario = new UserDataResponse();
+        SalvaPublicacaoRequest pedidoDados = gson.fromJson(inputString, SalvaPublicacaoRequest.class);
+        SalvaPublicacaoResponse respostaDados = new SalvaPublicacaoResponse();
 
         String login = Sessoes.getLogin(pedidoDados.token);
 
         int statusCode = 200;
 
         if (login == null) {
-            // token não pertence a nenhuma sessão ativa portanto os dados não são retornados
+            // token não pertence a nenhuma sessão ativa
             statusCode = 401; // não autorizado
-            respostaDadosUsuario.authentication = false;
+            respostaDados.authentication = false;
         } else {
-            Usuario usuario = Usuario.getUsuarioLogin(login);
-
-            respostaDadosUsuario.login = usuario.getLogin();
-            respostaDadosUsuario.admin = usuario.isAdmin();
+            // pedido é valido e uma nova publicação é salva
+            Publicacao.SalvarNovaPublicacao(pedidoDados.titulo, pedidoDados.conteudo, login);
         }
 
-        String respostaJson = gson.toJson(respostaDadosUsuario, UserDataResponse.class);
+        String respostaJson = gson.toJson(respostaDados, SalvaPublicacaoResponse.class);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
         exchange.sendResponseHeaders(statusCode, respostaJson.getBytes(StandardCharsets.UTF_8).length);
 
         OutputStream respostaHttp = exchange.getResponseBody();
         respostaHttp.write(respostaJson.getBytes(StandardCharsets.UTF_8));
-        respostaHttp.close();
+        respostaHttp.close(); 
     }
 
-    private static class UserDataRequest {
+    private class SalvaPublicacaoRequest {
         String token;
+
+        String titulo;
+        String conteudo;
     }
 
     @SuppressWarnings("unused") // está sendo usado sim pelo gson.toJson
-    private static class UserDataResponse {
-        String login;
-        boolean admin;
-
+    private class SalvaPublicacaoResponse {
         boolean authentication = true;
     }
+    
 }
