@@ -1,5 +1,7 @@
 package Usuario;
 
+import java.util.ArrayList;
+
 import SHA1.SHA1;
 
 public class Usuario {
@@ -8,16 +10,47 @@ public class Usuario {
     private String senha_hash;
     private boolean admin;
 
-    private int numero;
-    private String personalText;
+    private static ArrayList<Usuario> usuarios = new ArrayList<>();
 
-    public Usuario(String login, String senha_hash, boolean admin, int numero, String personalText) {
+    private Usuario(String login, String senha_hash, boolean admin) {
         this.login = login;
         this.senha_hash = senha_hash;
         this.admin = admin;
 
-        this.numero = numero;
-        this.personalText = personalText;
+        usuarios.add(this);
+    }
+
+    public static Usuario loadUsuario(String login, String senha_hash, boolean admin) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.login.equals(login)) {
+                usuario.senha_hash = senha_hash;
+                usuario.admin = admin;
+                return usuario;
+            }
+        }
+
+        return new Usuario(login, senha_hash, admin);
+    }
+
+    public static void SalvarNovoUsuario(String login, String senha_hash) {
+        new Usuario(login, senha_hash, false);
+
+        UsuariosDAO.addUsuario(login, senha_hash);
+    }
+
+    public static Usuario getUsuarioLogin(String login) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.login.equals(login))
+                return usuario;
+        }
+
+        return UsuariosDAO.getUsuario(login);
+    }
+
+    public static ArrayList<Usuario> getAllUsuarios() {
+        UsuariosDAO.loadAllUsuarios();
+
+        return usuarios;
     }
 
     // getters
@@ -36,29 +69,17 @@ public class Usuario {
     public boolean isAdmin() {
         return admin;
     }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public String getPersonalText() {
-        return personalText;
-    }
     
     // setters
     public void setSenha_hash(String senha) {
         this.senha_hash = SHA1.toHash(senha);
+
+        UsuariosDAO.ChangeSenha(this.login, senha);
     }
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
-    }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public void setPersonalText(String personalText) {
-        this.personalText = personalText;
+        UsuariosDAO.setAdmin(this.login, admin);
     }
 }

@@ -3,29 +3,49 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <title>ConectaUFC</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/x-icon" href="../../assets/ConectaUFCLogo.png">
+
+        <link rel="stylesheet" href="./styles/general.css">
+        <link rel="stylesheet" href="./styles/register.css">
     </head>
     <body>
-        <header>
-            <h1>ConectaUFC</h1>
-        </header>
+        <main id="register-container" class="container">
+            <div id="register_box" class="register-box" >
+                <div class="inputs_registrar">
 
-        <div id="registrar_box" class="input_login_registrar">
-            <form>
-                <label for="login">Login:</label>
-                <input type="text" id="login" name="login" required>
+                    <div class="logo-container-with-text">
+                        <img src="../../assets/ConectaUFCLogo.svg" alt="logo" class="img-logo">
+                        <span class="texto-logo">Conecta<span class="highlight">UFC</span></span>
+                    </div>
 
-                <label for="senha1">Senha:</label>
-                <input type="password" id="senha1" name="senha1" required>
+                    <h2 class="greeting">Crie sua conta!</h2>
 
-                <label for="senha2">Confirme sua senha:</label>
-                <input type="password" id="senha2" name="senha2" required>
+                    <form class="form">
+                        <label for="name">Nome:</label>
+                        <input type="text" id="name" name="name" required>
 
-                <button type="submit">Registrar</button>
-            </form>
-        </div>
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="login" name="email" required>
 
+                        <label for="senha1">Senha:</label>
+                        <input type="password" id="senha1" name="senha1" required>
+
+                        <label for="senha2">Confirme sua senha:</label>
+                        <input type="password" id="senha2" name="senha2" required> 
+
+                        <div class="botoes">
+                            <button class="criar-conta">Criar Conta</button>
+                        </div>
+                    </form>
+                </div>  
+            <div class="img-section">
+                <img src="../../assets/login_registro/estudantes.jpg" alt="aEstudantes" class="imagem_estudantes">
+            </div>
+
+            </div>
+        </main>
         <script src="../scripts/registrar.js"></script>
     </body>
 </html>

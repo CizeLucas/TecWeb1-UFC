@@ -1,28 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ConectaUFC</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <header>
-            <h1>ConectaUFC</h1>
-        </header>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div id="login_box" class="input_login_registrar">
-            <form>
-                <label for="login">Login:</label>
+      <title>ConectaUFC</title>
+      <link rel="icon" type="image/x-icon" href="../../assets/ConectaUFCLogo.png">
+
+      <link rel="stylesheet" href="./styles/general.css">
+      <link rel="stylesheet" href="./styles/login.css">
+  </head>
+  <body>
+      <div id="login-container" class="container">
+        <div id="login_box" class="login-box">
+
+          <div class="img-section-desktop">
+            <img src="../../assets/login_registro/estudantes.jpg" alt="Estudantes" class="imagem_estudantes_desktop">
+          </div>
+
+          <div class="img-section-mobile">
+            <img src="../../assets/login_registro/estudantes.jpg" alt="Estudantes" class="imagem_estudantes_mobile">
+          </div>
+
+          <div id="form-box" class="input_login_registrar">
+
+            <div class="logo-container-with-text">
+              <img src="../../assets/ConectaUFCLogo.svg" alt="logo" class="img-logo">
+              <span class="texto-logo">Conecta<span class="highlight">UFC</span></span>
+            </div>
+
+            <h2 class="bem-vindo">Bem-vindo!</h2>
+
+            <form class="form">
+              
+              <div class="inputs">
+                <label class="login-imput" for="login">E-mail:</label>
                 <input type="text" id="login" name="login" required>
+              </div>
 
+              <div class="inputs">
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" required>
+              </div>
 
-                <button type="submit">Fazer login</button>
+              <div class="botoes">
+                <button id="login_button" class="entrar">Entrar</button>
+                <button id="create_account_button" class="criar-conta">Criar Conta</button>
+              </div>
+
+              <a href="#" class="forgot-password">Esqueceu a senha?</a>
             </form>
+
+          </div>
+          
+
+          
         </div>
-        
-        <script src="../scripts/login.js"></script>
-    </body>
+      </div>
+          <script src="../scripts/login.js"></script>
+  </body>
 </html>

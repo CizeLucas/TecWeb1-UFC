@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+    <title>Conecta UFC</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/ConectaUFCLogo.png">
+
+    <!-- Arquivos styles -->
+    <link rel="stylesheet" href="./styles/general.css">
+    <link rel="stylesheet" href="./styles/landing.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <button id="menu_toggle" class="menu-toggle" aria-label="Abrir menu de navegação">
+                &#9776;
+            </button>
+            <div id="user_navigation_container" class="navigation-hidden">
+                <a id="projects_page">Projetos</a>
+                <a id="classifieds_page">Classificados</a>
+                <a id="materials_page">Materiais</a>
+            </div>
+
+            <div id="user_account_container">
+                <button id="register_button" href="registrar.html">Criar conta</button>
+                <button id="login_button">Entrar</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="first_section">
+            <div id="first_section_content">
+                <h1 id="main_text">Conectando Mentes e Expandindo Horizontes na Universidade Federal do Ceará em Sobral!</h1>
+                <button class="explore_button" id="explore_now_button">Explore agora</button>
+            </div>
+            <div>
+                <img src="../../assets/ConectaUFCLogo.svg" alt="Conecta UFC Logo" id="main_logo">
+            </div>
+        </section>
+
+        <section class="second-section">
+            <h2 class="section-title">
+            O que fazer no Conecta<span class="highlight">UFC</span>?
+            </h2>
+            
+            <div class="cards">
+            <div class="card">
+                <img src="../../assets/landing/book.svg" alt="Livro">
+                <p>Resumos e<br>materiais de estudo.</p>
+            </div>
+            <div class="card">
+                <img src="../../assets/landing/chat-conversation.svg" alt="Chat">
+                <p>Classificados e<br>comunicação com alunos.</p>
+            </div>
+            <div class="card">
+                <img src="../../assets/landing/star.svg" alt="Estrela">
+                <p>Recomendações<br>de alunos para alunos.</p>
+            </div>
+            <div class="card">
+                <img src="../../assets/landing/light-bulb-idea.svg" alt="Ideia">
+                <p>Mural de<br>projetos e oportunidades.</p>
+            </div>
+            </div>
+
+            <p class="cta-text">Aprimore sua jornada na UFC e<br>cadastre-se agora gratuitamente!</p>
+            <a class="cta-button" id="join_button">Cadastre-se</a>
+        </section>
+    </main>
+    
+    <footer>
+        <p id="footer-text">Todos direitos reservados ConectaUFC</p>
+    </footer>
+    <script src="../scripts/landing.js"></script>
+</body>
+</html>

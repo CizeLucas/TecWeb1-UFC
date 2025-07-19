@@ -14,30 +14,32 @@ import java.nio.file.Files;
 public class StaticFileHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String basePath = "frontend/src";
+        String basePath = "frontend";
         String requestedPath = exchange.getRequestURI().getPath();
 
-        System.out.println("link requisitado: " + requestedPath);
-
-        // Redireciona raiz para index.html
+        // Redireciona raiz para landing_page.html
         if (requestedPath.equals("/")) {
-            requestedPath = "/index.html";
+            requestedPath = "/landing.html";
         }
 
-        // Tenta primeiro na raiz de frontend/src
+        // Tenta primeiro em frontend
         File file = new File(basePath + requestedPath);
 
-        // Se não existir, tenta em /site/
+        // Se não existir, tenta em frontend/src
         if (!file.exists() || file.isDirectory()) {
-            file = new File(basePath + "/site" + requestedPath);
+            file = new File(basePath + "/src" + requestedPath);
         }
 
-        System.out.println("tentando servir: " + file.getPath());
+        // Se não existir, tenta em frontend/src/site
+        if (!file.exists() || file.isDirectory()) {
+            file = new File(basePath + "/src/site" + requestedPath);
+        }
 
         if (file.exists() && !file.isDirectory()) {
             String mime = "text/html";
             if (requestedPath.endsWith(".css")) mime = "text/css";
             if (requestedPath.endsWith(".js")) mime = "application/javascript";
+            if (requestedPath.endsWith(".svg")) mime = "image/svg+xml";
             if (requestedPath.endsWith(".png")) mime = "image/png";
             if (requestedPath.endsWith(".jpg") || requestedPath.endsWith(".jpeg")) mime = "image/jpeg";
             if (requestedPath.endsWith(".ico")) mime = "image/x-icon";
