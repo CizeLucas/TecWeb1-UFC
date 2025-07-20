@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Tuffy:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/frontend/assets/ConectaUFCLogo.png"/>
     <title>ConectaUFC</title>
 </head>
 <body>
@@ -36,15 +35,14 @@
     <div class="main-wrapper">
         <aside class="barra-naveg-esquerda">
             <nav class="barra-naveg-nav">
-                <a href="ultimas-postagens.html" class="barra-naveg-item">Últimas Postagens</a>
+                <a href="publicacoes.html" class="barra-naveg-item">Publicações</a>
                 <a href="materiais-estudo.html" class="barra-naveg-item">Materiais de Estudo</a>
                 <a href="resumos.html" class="barra-naveg-item">Resumos</a>
-                <a href="minhas-publicacoes.html" class="barra-naveg-item">Minhas Publicações</a>
-               </nav>
+            </nav>
         </aside>
         <main class="conteudo-secao">
-            <h2 class="titulo-secao">Últimas Postagens</h2> <!--titulo da secao de posts-->
-
+            <h2 class="titulo-secao">Publicações</h2> <!--titulo da secao de posts-->
+            
             <!-- Novo post -->
 
             <div class="post-creator-card">
@@ -75,23 +73,24 @@
                 </footer>
                 </div>
 
-                 <!-- Últimos Posts -->    
+                 <!-- Últimos Posts -->   
 
-                <article class="post-card">
-                <header class="post-header">
-                    <div class="post-user-info">
-                        <div class="post-avatar">
-                            <i class="fa-regular fa-user"></i>
-                        </div>
-                        <div class="post-user-details">
-                            <span class="post-user-name">Fulano de Tal</span>
-                            <span class="post-timestamp">1h atrás</span>
-                        </div>
+            <article class="post-card">
+            <header class="post-header">
+                <div class="post-user-info">
+                    <div class="post-avatar">
+                        <i class="fa-regular fa-user"></i>
                     </div>
-                    <button class="post-menu-button">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </button>
-                </header>
+                    <div class="post-user-details">
+                        <span class="post-user-name">Fulano de Tal</span>
+                        <span class="post-timestamp">1h atrás</span>
+                    </div>
+                </div>
+                <button class="post-menu-button">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </header>
+
             <div class="post-body">
                 <p>Olá pessoal! Aqui vai uma sugestão de material para a disciplina de Introdução a engenharia.</p>
                 <div class="post-gallery">
@@ -123,6 +122,52 @@
             </footer>
             </article>
 
+            <article class="post-card">
+            <header class="post-header">
+                <div class="post-user-info">
+                    <div class="post-avatar">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div class="post-user-details">
+                        <span class="post-user-name">Fulana de Tal</span>
+                        <span class="post-timestamp">3h atrás</span>
+                    </div>
+                </div>
+                <button class="post-menu-button">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </header>
+
+            <div class="post-body">
+                <p>Boa tarde, fiz um resumo do capítulo 3 de Física 3. Qualquer dúvida só avisar!</p>
+                <div class="post-gallery">
+                    <div class="gallery-item-placeholder"></div>
+                    <div class="gallery-item-placeholder ver-mais">
+                        <span>Ver Mais</span>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="post-footer">
+                <div class="post-meta-info">
+                    <div class="post-categories">
+                        <span>Categorias:</span>
+                        <span class="category-tag">Resumos</span>
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="fa-regular fa-thumbs-up"></i></button>
+                        <button><i class="fa-regular fa-comment"></i></button>
+                        <div class="post-views">
+                            <i class="fa-regular fa-eye"></i>
+                            <span>157 Visualizações</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="post-save-button">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+            </footer>
+            </article>
         </main>
     </div>
     <script src="../scripts/materiais_estudo.js"></script>

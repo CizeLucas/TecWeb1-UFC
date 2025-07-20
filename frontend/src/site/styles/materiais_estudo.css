@@ -38,19 +38,25 @@ button{
     cursor: pointer;
 }
 
-.barra-naveg{
-    font-family: 'Open Sans', sans-serif;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10rem;
-    background-color:#b2afad5b;
-    flex-direction: row; 
-    justify-content: space-between; 
+.barra-naveg {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    position: static; 
-    top: 0;
+    padding: 2.5rem 2.5rem;
+    gap: 2rem;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #b2afad5b;
+    position: static;
     z-index: 1000;
+}
+
+.barra-naveg > div {
+    flex: 1;
+}
+
+.logo-container {
+    grid-column: 2;
+    text-align: center;
 }
 
 .barra-pesquisa{
@@ -59,10 +65,9 @@ button{
     border-radius: 25px;
     padding: 0.5rem 1rem;
     background-color: rgb(217, 217, 217, 0.30);
-    max-width: 80%;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 30%;
+    justify-self: end;
+    margin: 2rem;
 }
 
 .barra-pesquisa input{
@@ -99,21 +104,14 @@ button{
     padding-right: 40px;
 }
 
-.barra-naveg-esquerda{
-    background-image: radial-gradient( #E7BF6D,#554B85);
-    flex: 0 0 250px; 
-    border-radius: 36px;
-    padding: 1.5rem 0;
-    align-self: flex-start;
-
+.barra-naveg-esquerda {
     position: sticky;
     top: 1.5rem;
-    align-self: start;
-
-    height: calc(100vh - 100px); 
-    max-height: calc(100vh - 100px);
-    overflow-y: auto; 
-    overflow-x: hidden;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    background-image: radial-gradient(#E7BF6D, #554B85);
+    border-radius: 36px;
+    padding: 1.5rem 0;
 }
 
 .barra-naveg-nav{
@@ -154,30 +152,33 @@ button{
     color: black;
 }
 
-.main-wrapper{
-    background-color: none;
+.main-wrapper {
     max-width: 1200px;
     margin: 1.5rem auto;
     padding: 0 2rem; 
-    border-radius: 15px;
     display: grid;
-    grid-template-columns: 250px 1fr;;
-    gap: 1.5rem; 
+    grid-template-columns: 250px 1fr;
+    gap: 1rem;
+    align-items: start; 
 }
 
-.titulo-secao { /* o título "Últimas Postagens" por exemplo*/
+.titulo-secao {
     font-size: 1.6rem;
     color: var(--branco);
-    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem; 
     padding-bottom: 0.5rem;
-    display: inline-block;
+    width: 100%;
+    text-align: left;
 }
 
 .conteudo-secao {
-    background-image: radial-gradient( #E7BF6D,#554B85);
+    background-image: radial-gradient(#E7BF6D, #554B85);
     border-radius: 46px;
-    padding: 1.5rem 2rem; 
-    align-self: flex-start;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
 }
 
 /* ESTILOS PARA OS POSTS */
@@ -332,10 +333,11 @@ button{
 /* --- NOVO POST --- */
 
 .post-creator-card {
+    width: 100%;
     background-color: #d9d9d95d;
     border-radius: 30px;
     margin-bottom: 2rem;
-    overflow: hidden; 
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -393,15 +395,15 @@ button{
 
 .post-textarea {
     width: 100%;
-    min-height: 120px;
+    min-height: 80px; 
     border: none;
-    outline: none; 
-    resize: vertical; 
+    outline: none;
+    resize: vertical;
     padding: 1rem;
     font-size: 1rem;
     font-family: 'Open Sans', sans-serif;
     color: var(--texto-escuro);
-    background-color: transparent; 
+    background-color: transparent;
 }
 
 /* --- Estilos do Rodapé --- */
@@ -488,8 +490,9 @@ button{
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         align-items: center;
-        padding: 0.5rem 1rem;
+        padding: 0rem 1rem;
         gap: 1rem;
+        margin-bottom: 1rem;
     }
 
     #logo-texto {
@@ -526,7 +529,8 @@ button{
 
     .main-wrapper {
         grid-template-columns: 1fr;
-        padding: 1rem;
+        padding: 0 1rem;
+        margin-top: 0;
     }
 
     .barrar-naveg-direita-principal {
