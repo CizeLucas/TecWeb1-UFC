@@ -93,6 +93,29 @@ if (!token) {
     });
 }
 
+function salvarPublicacao() {
+    conteudo = document.getElementById("caixa-texto-conteudo").value;
+
+    fetch("/SalvaPublicacao", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: token, titulo: "None", conteudo: conteudo})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.authentication) {
+            alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
+            window.location.href = "login.html"; // volta para pagina de login
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao salvar nova publicação: ", error);
+        alert("Erro ao salvar nova publicação.");
+    });
+}
+
 menuToggle.addEventListener("click", () => {
     sidebar.classList.toggle("open");
 });
