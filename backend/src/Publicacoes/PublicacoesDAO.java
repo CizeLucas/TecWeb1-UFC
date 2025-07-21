@@ -74,7 +74,8 @@ public class PublicacoesDAO extends BasicDAO {
 
         String sqlQuery = "INSERT INTO publicacoes (titulo, conteudo, usuario_login) VALUES (?, ?, ?)";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+            sqlQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, titulo);
             preparedStatement.setString(2, conteudo);
             preparedStatement.setString(3, usuarioLogin);
