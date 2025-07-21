@@ -1,16 +1,108 @@
-    const menuToggle = document.getElementById("menu-toggle");
-    const sidebar = document.querySelector(".barra-naveg-esquerda");
+const menuToggle = document.getElementById("menu-toggle");
+const sidebar = document.querySelector(".barra-naveg-esquerda");
 
-    menuToggle.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-    });
+const token = sessionStorage.getItem("tokenUsuario");
 
-    // vai fechar o menu se clicar em algum link dentro dele
-    sidebar.addEventListener("click", e => {
-        if (e.target.classList.contains("barra-naveg-item")) {
-            sidebar.classList.remove("open");
+if (!token) {
+    console.log("Tentativa de recuperar publicacoes sem token")
+    window.location.href = "login.html";
+} else {
+    fetch("/ListaPublicacoes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: token })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.authentication) {
+            alert("token de validação inválido, sua sessão pode ter terminado ou você não tem acesso a esses dados, retornando a pagina de login");
+            window.location.href = "login.html"; // volta para pagina de login
+        } else {
+            var publicacoes = data.publicacoes;
+
+            const containerPublicacoes = document.getElementById("posts");
+
+            publicacoes.forEach(publicacao => {
+                var titulo = publicacao.titulo;
+                var conteudo = publicacao.conteudo;
+                var loginUsuario = publicacao.loginUsuario;
+                var tempo = '? minutos atras';
+                var visualizacoes = -1;
+                var categorias = "nenhuma";
+
+                var publicacaoHTML = document.createElement('article');
+                publicacaoHTML.className = 'post-card';
+                publicacaoHTML.innerHTML = `
+                <header class="post-header">
+                    <div class="post-user-info">
+                        <div class="post-avatar">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <div class="post-user-details">
+                            <span class="post-user-name">${loginUsuario}</span>
+                            <span class="post-timestamp">${tempo}</span>
+                        </div>
+                    </div>
+                    <button class="post-menu-button">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                </header>
+
+                <div class="post-body">
+                    <h3>${titulo}</h3>
+                    <p>${conteudo}</p>
+                    <!--
+                    <div class="post-gallery">
+                        <div class="gallery-item-placeholder"></div>
+                        <div class="gallery-item-placeholder ver-mais">
+                            <span>Ver Mais</span>
+                        </div>
+                    </div>
+                    -->
+                </div>
+
+                <footer class="post-footer">
+                    <div class="post-meta-info">
+                        <div class="post-categories">
+                            <span>Categorias:</span>
+                            <span class="category-tag">${categorias}</span>
+                        </div>
+                        <div class="post-actions">
+                            <button><i class="fa-regular fa-thumbs-up"></i></button>
+                            <button><i class="fa-regular fa-comment"></i></button>
+                            <div class="post-views">
+                                <i class="fa-regular fa-eye"></i>
+                                <span>${visualizacoes} Visualizações</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="post-save-button">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+                </footer>`;
+
+                containerPublicacoes.appendChild(publicacaoHTML);
+            });
         }
+    })
+    .catch(error => {
+        console.error("Erro ao buscar dados das publicações:", error);
+        alert("Erro ao carregar dados das publicações.");
     });
+}
+
+menuToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+});
+
+// vai fechar o menu se clicar em algum link dentro dele
+sidebar.addEventListener("click", e => {
+    if (e.target.classList.contains("barra-naveg-item")) {
+        sidebar.classList.remove("open");
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("ConectaUFC carregado!");
