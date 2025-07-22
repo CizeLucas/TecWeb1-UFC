@@ -1,0 +1,25 @@
+# Add this file to exclude unnecessary files from Docker build context
+node_modules/
+npm-debug.log
+Dockerfile*
+docker-compose*
+.dockerignore
+.git/
+.gitignore
+README.md
+.env
+.nyc_output
+coverage
+.coverage
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+*.class
+target/
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
