@@ -89,7 +89,7 @@ if (!token) {
     })
     .catch(error => {
         console.error("Erro ao buscar dados das publicações:", error);
-        alert("Erro ao carregar dados das publicações.");
+       //alert("Erro ao carregar dados das publicações.");
     });
 }
 
