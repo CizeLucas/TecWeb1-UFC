@@ -1,10 +1,5 @@
 const token = sessionStorage.getItem("tokenUsuario");
 
-const admin_link = document.getElementById("admin_link");
-admin_link.style.pointerEvents = "none";
-admin_link.style.opacity = "0.5";
-admin_link.title = "Apenas para admin";
-
 if (!token) {
     console.log("Tentativa de entrar em pessoal.html sem token")
     window.location.href = "login.html";
@@ -23,14 +18,6 @@ if (!token) {
             window.location.href = "login.html"; // volta para pagina de login
         } else {
             document.getElementById("loginUsuario").textContent = data.login;
-            document.getElementById("textoUsuario").textContent = data.texto;
-            document.getElementById("numeroUsuario").value = data.numero;
-
-            if (data.admin) {
-                admin_link.style.pointerEvents = "auto";
-                admin_link.style.opacity = "1";
-                admin_link.title = "";
-            }
         }
     })
     .catch(error => {
