@@ -15,18 +15,15 @@ document.getElementById("explore_now_button").addEventListener("click", function
 });
 
 document.getElementById("projects_page").addEventListener("click", function (event) {
-    window.alert("Página de projetos ainda não implementada.");
-    //window.location.href = "(...).html"
+    window.location.href = "login.html"
 });
 
 document.getElementById("classifieds_page").addEventListener("click", function (event) {
-    window.alert("Página de classificados ainda não implementada.");
-    //window.location.href = "(...).html"
+    window.location.href = "login.html"
 });
 
 document.getElementById("materials_page").addEventListener("click", function (event) {
-    window.alert("Página de materiais ainda não implementada.");
-    //window.location.href = "(...).html"
+    window.location.href = "login.html"
 });
 
 // Toggle menu open/close
